@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>School Donations Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for ('static',
+    filename='lib/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for ('static', filename='lib/bower_components/dcjs/dc.css')}}">
+  <link rel="stylesheet" href="{{ url_for ('static', filename='lib/bower_components/keen-js/dist/keen.min.css')}}">
+</head>
+<body class="application">
+ <!-- <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="./">School Donations Dashboard</a>
+      </div>
+    </div>
+  </div>-->
+  <div  id="outer" class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="row">
+          <!-- Time Chart -->
+          <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Number of Donations
+              </div>
+              <div class="chart-stage">
+                <div id="time-chart"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Time Chart -->
+             <!-- Time Chart -->
+          <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Number of Donations
+              </div>
+              <div class="chart-stage">
+                <div id="pie-chart"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Time Chart -->
+      <!-- menu select -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Donation State
+          </div>
+          <div class="chart-stage">
+            <div id="menu-select"></div>
+          </div>
+        </div>
+      </div>
+
+            <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Donation State
+          </div>
+          <div class="chart-stage">
+            <div id="menu-select2"></div>
+          </div>
+        </div>
+      </div>
+      <!-- menu select -->
+    </div>
+  </div>
+  <hr>
+  <script src="{{ url_for ('static', filename='lib/bower_components/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{ url_for ('static', filename='lib/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+  <script src="{{ url_for ('static', filename='lib/js/crossfilter.js')}}"></script>
+  <script src="{{ url_for ('static', filename='lib/js/d3.js')}}"></script>
+  <script src="{{ url_for ('static', filename='lib/js/dc.js')}}"></script>
+  <script src="{{ url_for ('static', filename='lib/js/queue.js')}}"></script>
+  <script src="{{ url_for ('static', filename='lib/bower_components/keen-js/dist/keen.min.js')}}"></script>
+  <script src="{{ url_for ('static', filename='lib/js/main.js')}}"></script>
+</body>
+</html>
