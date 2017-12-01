@@ -119,22 +119,36 @@ function deviceLabel(d,elementArray){
             }
 }
 
+// function responsible for handling of intro.js animations switching between Bootstrap HTML nav-tabs
+
 $('#tour-button').on('click',function(){
 
    introJs().onchange(function(targetElement){
 
+       //Get the value of the current tab
+
        var currentTab = $('div.active');
+
+       // get the value of the list element related to the current tab
 
        var currentListElement = $('li.active');
 
+       // if statement check if the tab-pane that includes the target element does contain the class "active"
+       // which is responsible for activating the visibility of the tab in the page
+
+
        if( $(targetElement).parents('.tab-pane').prop('class').includes('active')===false){
 
+          // removing the class "active" from the current tab
            $(currentTab).removeClass('in active');
+           // removing the class active from the list element associated with the current tab
            $(currentListElement).removeClass('active');
+           // adding the class "active" to the tab that contains the element targeted by intro.js
            $(targetElement).parents('.tab-pane').addClass('active in');
+           // adding the "active" class to the list element related to tab targeted by intro.js
            $('a[href="#' + $(targetElement).parents('.tab-pane').attr('id') +'"]').parent('li').addClass('active');
 
        }
 
-   }).start();
+   }).setOptions({'showBullets':false,'showProgress':true}).start();
 });
