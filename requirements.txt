@@ -14,7 +14,6 @@ ptyprocess==0.5
 pycrypto==2.6.1
 pyodbc==3.0.7
 six==1.10.0
-unity-lens-photos==1.0
 virtualenv==15.1.0
 Werkzeug==0.12.2
 wxPython==3.0.2.0
