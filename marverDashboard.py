@@ -4,7 +4,12 @@ from flask_mysqldb import MySQL
 import MySQLdb
 from datetime import datetime,date,timedelta
 import json
-from config import *
+
+MYSQL_HOST = 'lucataproejctnew.c66082eq1miy.eu-west-2.rds.amazonaws.com'
+MYSQL_USER = 'marver'
+MYSQL_PASSWORD = 'Lucata05111950666'
+MYSQL_DB = 'marver'
+MYSQL_PORT = '3306'
 
 
 class DateTimeEncoder(json.JSONEncoder):
