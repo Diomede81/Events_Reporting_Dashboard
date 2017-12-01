@@ -24,7 +24,9 @@
         <div class="tab-pane fade in active" id="site-data">
             <div  id="outer" class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" data-step="1" data-intro="Welcome to the Site Visits Panel! in here you will be able to get user views data related to the entire site
+                        This specific element contains the total amount of events visits, when different data is selected within the
+                                                                    graphs options, the value will adapt based on the selection" data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                             </div>
@@ -35,7 +37,7 @@
                       <button class="intro_button pull-right" type="button" id="tour-button" autofocus>Start Tour!</button>
                     </div>
                     <!-- Time Chart -->
-                    <div class="col-sm-12 borders padding" data-step="1" data-intro="Number of Total Site Visits split by Month" data-position="top">
+                    <div class="col-sm-12 borders padding" data-step="2" data-intro="Number of Total Site Visits split by Month" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Number of Site Views by Month
@@ -46,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6 borders padding" data-step="2" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
+                    <div class="col-sm-6 borders padding" data-step="3" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -57,7 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 borders padding" data-step="3" data-intro="This graph is showing the number of views divided by different type of browser ad devices, this might
+                    <div class="col-sm-6 borders padding" data-step="4" data-intro="This graph is showing the number of views divided by different type of browser ad devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -71,11 +73,12 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="events-data">
+        <div class="tab-pane fade" id="events-data" >
             <div  id="outer" class="container-fluid">
                 <div class="row">
                     <button class="intro_button pull-right" type="button" autofocus onclick="javascript:introJs().goToStep(4).start().setOption('hidePrev','true');">Start Tour!</button>
-                    <div class="col-sm-8" data-step="4" data-intro="This is the total amount of events visits, when different data is selected within the
+                    <div class="col-sm-8" data-step="5" data-intro="Welcome to the Events Specific Panel! In here you will be able to get user views data related to webcast events
+                        This specific element contains the total amount of events visits, when different data is selected within the
                                                                     graphs options, the value will adapt based on the selection" data-position="right">
 
                         <div class="chart-wrapper" >
@@ -87,7 +90,7 @@
                         </div>
                     </div>
                     <!-- menu select -->
-                    <div class="col-sm-4  padding" data-step="5" data-intro="From here you will be able to select data from single events,
+                    <div class="col-sm-4  padding" data-step="6" data-intro="From here you will be able to select data from single events,
                      the selection will update all of the graphs accordingly" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -102,7 +105,7 @@
                 <!-- menu select -->
                 <!-- Time Chart -->
                 <div class="row borders padding">
-                    <div class="col-sm-12 " data-step="6" data-intro="Number of Total Events Visits split by Month this graph will automatically
+                    <div class="col-sm-12 " data-step="7" data-intro="Number of Total Events Visits split by Month this graph will automatically
                     update when you select a single webcast" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -115,7 +118,7 @@
                     </div>
                 </div>
                 <div class="row borders">
-                    <div class="col-sm-6 padding"  data-step="7" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
+                    <div class="col-sm-6 padding"  data-step="8" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -126,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 padding" data-step="8" data-intro="This graph is showing the number of views divided by different type of browser and devices, this might
+                    <div class="col-sm-6 padding" data-step="9" data-intro="This graph is showing the number of views divided by different type of browser and devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -140,7 +143,7 @@
                 </div>
                 <div class="row borders padding">
                     <!-- Resources -->
-                    <div class="col-sm-12" id="event-row-chart-column" data-step="9" data-intro="This graph is showing a comparison between each
+                    <div class="col-sm-12" id="event-row-chart-column" data-step="10" data-intro="This graph is showing a comparison between each
                     webcast event in terms of amount of viewers" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -159,7 +162,9 @@
         <div class="tab-pane fade" id="support-data">
             <div  id="outer" class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-8" data-step="11" data-intro="Welcome to the Support Specific Panel! In here you will be able to get user views data related to Support Requests
+                        This specific element contains the Number of Total Support Requests split by Month, when different data is selected within the
+                                                                    graphs options, the value will adapt based on the selection">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                             </div>
@@ -168,7 +173,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 padding">
+                    <div class="col-sm-3 padding" data-step="12" data-intro="From here you will be able to select Support data from single events,
+                     the selection will update all of the graphs accordingly" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Event Selection
@@ -180,7 +186,8 @@
                     </div>
                 </div>
                 <div class="row borders padding">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" data-step="13" data-intro="Number of Total Support Requests split by Month, this graph will automatically
+                    update when you select a single webcast" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Number of Support Requests by Month
@@ -192,7 +199,8 @@
                     </div>
                 </div>
                 <div class="row borders padding">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" data-step="14" data-intro="This graph is showing the number of support requests divided by different type of operating systems and devices, this might
+                    help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Requests by Operating System
@@ -202,7 +210,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" data-step="15" data-intro="This graph is showing the number of support requests divided by different type of browser ad devices, this might
+                    help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Requests by Browser Type
@@ -212,7 +221,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" data-step="16" data-intro="This graph is showing the number of support requests divided by different type of pre-defined problem types, this might
+                    help you in identifying specific isolated issues and tackle problem with a more efficient approach " data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Requests by Problem Type
@@ -224,7 +234,8 @@
                     </div>
                 </div>
                 <div class="row borders padding">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" data-step="17" data-intro="This graph is showing a comparison between each
+                    webcast event in terms of amount of support requests" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Total Support Requests per single Webcast Comparison
@@ -240,7 +251,9 @@
         <div class="tab-pane fade" id="ratings-data">
             <div  id="outer" class="container-fluid">
                 <div class="row ratings-row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-8" data-step="18" data-intro="Welcome to the Rating Specific Panel! in here you will be able to get user views data related to ratings per webcast events
+                        This specific element contains Number of Total Ratings, when different data is selected within the
+                                                                    graphs options, the value will adapt based on the selection">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                             </div>
@@ -250,7 +263,8 @@
                         </div>
                     </div>
                     <!-- menu select -->
-                    <div class="col-sm-4 padding">
+                    <div class="col-sm-4 padding" data-step="19" data-intro="From here you will be able to select Ratings data from single events,
+                     the selection will update all of the graphs accordingly" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Event Selection
@@ -263,11 +277,13 @@
                 </div>
                 <!-- menu select -->
                 <div class="row borders padding">
-                    <div class="col-sm-6 ratings-display tab-header">
+                    <div class="col-sm-6 ratings-display tab-header" data-step="20" data-intro="In this section you will be provided with the average score of either the total
+                    amount of webcast events or based on individual selection, this figure will update automatically to reflect the options you have selected" data-position="right">
                         <h1 id="ratings-header"></h1>
                     </div>
 
-                    <div class="col-sm-5">
+                    <div class="col-sm-6" data-step="21" data-intro="In this section you will be provided with detailed information about ratings based on the
+                     options you have selected" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Views by Individual Star Rating
@@ -279,7 +295,8 @@
                     </div>
                 </div>
                 <div class="row borders padding">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" data-step="22" data-intro="This graph is showing a comparison between each
+                    webcast event in terms of ratings score" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 View by number of Ratings per Single Event

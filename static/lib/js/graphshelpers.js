@@ -118,3 +118,23 @@ function deviceLabel(d,elementArray){
                 return  Math.ceil((d.value/sum) * 100) + '%'
             }
 }
+
+$('#tour-button').on('click',function(){
+
+   introJs().onchange(function(targetElement){
+
+       var currentTab = $('div.active');
+
+       var currentListElement = $('li.active');
+
+       if( $(targetElement).parents('.tab-pane').prop('class').includes('active')===false){
+
+           $(currentTab).removeClass('in active');
+           $(currentListElement).removeClass('active');
+           $(targetElement).parents('.tab-pane').addClass('active in');
+           $('a[href="#' + $(targetElement).parents('.tab-pane').attr('id') +'"]').parent('li').addClass('active');
+
+       }
+
+   }).start();
+});
