@@ -32,9 +32,10 @@
                                 <div class="dc-data-count"></div>
                             </div>
                         </div>
+                      <button class="intro_button pull-right" type="button" id="tour-button" autofocus>Start Tour!</button>
                     </div>
                     <!-- Time Chart -->
-                    <div class="col-sm-12 borders padding">
+                    <div class="col-sm-12 borders padding" data-step="1" data-intro="Number of Total Site Visits split by Month" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Number of Site Views by Month
@@ -45,7 +46,8 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6 borders padding">
+                    <div class="col-sm-6 borders padding" data-step="2" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
+                    help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Views by Operating System
@@ -55,7 +57,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 borders padding">
+                    <div class="col-sm-6 borders padding" data-step="3" data-intro="This graph is showing the number of views divided by different type of browser ad devices, this might
+                    help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Views by Browser Type
@@ -71,17 +74,21 @@
         <div class="tab-pane fade" id="events-data">
             <div  id="outer" class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-8">
-                        <div class="chart-wrapper">
+                    <button class="intro_button pull-right" type="button" autofocus onclick="javascript:introJs().goToStep(4).start().setOption('hidePrev','true');">Start Tour!</button>
+                    <div class="col-sm-8" data-step="4" data-intro="This is the total amount of events visits, when different data is selected within the
+                                                                    graphs options, the value will adapt based on the selection" data-position="right">
+
+                        <div class="chart-wrapper" >
                             <div class="chart-title">
                             </div>
-                            <div class="chart-stage">
+                            <div class="chart-stage" >
                                 <div class="events-dc-data-count tab-header"></div>
                             </div>
                         </div>
                     </div>
                     <!-- menu select -->
-                    <div class="col-sm-4  padding">
+                    <div class="col-sm-4  padding" data-step="5" data-intro="From here you will be able to select data from single events,
+                     the selection will update all of the graphs accordingly" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Event Selection
@@ -95,7 +102,8 @@
                 <!-- menu select -->
                 <!-- Time Chart -->
                 <div class="row borders padding">
-                    <div class="col-sm-12 ">
+                    <div class="col-sm-12 " data-step="6" data-intro="Number of Total Events Visits split by Month this graph will automatically
+                    update when you select a single webcast" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Number of Views by Month
@@ -107,7 +115,8 @@
                     </div>
                 </div>
                 <div class="row borders">
-                    <div class="col-sm-5 padding">
+                    <div class="col-sm-6 padding"  data-step="7" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
+                    help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Views by Operating System
@@ -117,7 +126,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-5 padding margin-left">
+                    <div class="col-sm-6 padding" data-step="8" data-intro="This graph is showing the number of views divided by different type of browser and devices, this might
+                    help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Views by Browser Type
@@ -130,7 +140,8 @@
                 </div>
                 <div class="row borders padding">
                     <!-- Resources -->
-                    <div class="col-sm-12" id="event-row-chart-column">
+                    <div class="col-sm-12" id="event-row-chart-column" data-step="9" data-intro="This graph is showing a comparison between each
+                    webcast event in terms of amount of viewers" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Total Visitors per single Event Comparison

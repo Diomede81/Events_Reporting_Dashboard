@@ -582,3 +582,24 @@ function ratingsGraphs(data){
 dc.renderAll();
 
 }
+
+$('#tour-button').on('click',function(){
+
+   introJs().onchange(function(targetElement){
+
+                         if (parseInt(targetElement.getAttribute('data-step')) > 3 || parseInt(targetElement.getAttribute('data-step')) > 8 ){
+
+                            $(targetElement).parents('.tab-pane').prev('.tab-pane').removeClass('in active');
+                            $(targetElement).parents('.tab-pane').addClass('active in');
+                            var element = $(targetElement).parents('.tab-pane').prev('.tab-pane').attr('id');
+                            $('a[href="#' + element +'"]').parent('li').removeClass('active');
+                            $('a[href="#' + $(targetElement).parents('.tab-pane').attr('id') +'"]').parent('li').addClass('active');
+                            $('.introjs-prevbutton').prop('disabled');
+
+                           introJs().setOption('hidePrev','disabled');
+
+                            introJs().goToStep(4);
+                         }
+   }).start();
+});
+
