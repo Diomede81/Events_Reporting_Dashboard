@@ -22,9 +22,9 @@ class DateTimeEncoder(json.JSONEncoder):
 
 app = Flask(__name__)
 
-db = MySQLdb.connect(host=config.MYSQL_HOST,    # your host, usually localhost
-                     user=config.MYSQL_USER,         # your username
-                     passwd=config.MYSQL_PASSWORD,  # your password
+db = MySQLdb.connect(host=config.MYSQL_HOST,
+                     user=config.MYSQL_USER,
+                     passwd=config.MYSQL_PASSWORD,
                      db=config.MYSQL_DB)
 
 @app.route("/")
