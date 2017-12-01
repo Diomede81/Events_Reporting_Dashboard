@@ -151,3 +151,4 @@ $('#tour-button').on('click',function(){
 
    }).setOptions({'showBullets':false,'showProgress':true}).start();
 });
+

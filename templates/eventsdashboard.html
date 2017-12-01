@@ -10,6 +10,17 @@
   <link rel="stylesheet" href="{{ url_for ('static', filename='lib/bower_components/intro.js/introjs.css')}}">
 </head>
 <body class="application">
+
+<!--Loader-->
+<div id="loader-overlay">
+    <div class="lds-css ng-scope">
+        <div style="width:100%;height:100%" class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid reports-container" id="graphContainer">
     <ul class="nav nav-tabs">
         <li><img src="{{ url_for ('static', filename='lib/img/logo-main.png')}}" width="450" height="70" alt="Marver Logo" data-toggle="tab"></li>

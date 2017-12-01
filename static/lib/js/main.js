@@ -31,7 +31,7 @@ function cleanData(error,data){
             }
         })
     });
-
+    $('#loader-overlay').hide();
     siteVisitsGraphs(data[0].sitevisits);
     eventVisitsGraphs(data[0].eventvisits);
     supportGraphs(data[0].support);
