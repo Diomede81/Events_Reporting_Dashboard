@@ -4,12 +4,8 @@ from flask_mysqldb import MySQL
 import MySQLdb
 from datetime import datetime,date,timedelta
 import json
+from settings import config
 
-MYSQL_HOST = 'lucataproejctnew.c66082eq1miy.eu-west-2.rds.amazonaws.com'
-MYSQL_USER = 'marver'
-MYSQL_PASSWORD = 'Lucata05111950666'
-MYSQL_DB = 'marver'
-MYSQL_PORT = '3306'
 
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -26,10 +22,10 @@ class DateTimeEncoder(json.JSONEncoder):
 
 app = Flask(__name__)
 
-db = MySQLdb.connect(host=MYSQL_HOST,    # your host, usually localhost
-                     user=MYSQL_USER,         # your username
-                     passwd=MYSQL_PASSWORD,  # your password
-                     db=MYSQL_DB)
+db = MySQLdb.connect(host=config.MYSQL_HOST,    # your host, usually localhost
+                     user=config.MYSQL_USER,         # your username
+                     passwd=config.MYSQL_PASSWORD,  # your password
+                     db=config.MYSQL_DB)
 
 @app.route("/")
 def index():
