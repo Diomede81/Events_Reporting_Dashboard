@@ -1,0 +1,21 @@
+{
+  "name": "marverDashboard",
+  "homepage": "https://github.com/Diomede81/charityDashboard",
+  "authors": [
+    "Luca Licata <lucalicata@hotmail.com>"
+  ],
+  "description": "INfograph Dashboard for Fraternity without borders website",
+  "main": "",
+  "license": "MIT",
+  "dependencies": {
+    "d3": "^4.11.0",
+    "crossfilter": "^1.3.12",
+    "dcjs": "dc.js#^2.1.9",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "d3-queue": "^3.0.7",
+    "keen-js": "^4.3.0",
+    "intro.js": "introjs#^1.0.0"
+  },
+  "directory": "static/lib/bower_components"
+}
