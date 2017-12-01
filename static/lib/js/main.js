@@ -1,211 +1,584 @@
 
 
-/*d3.queue()
-    .defer(d3.json,'/getdata/mozambique')
-    .await(test);
 
-function test(error,data){
-
-
-
-    console.log(data);
-
-    data.forEach(function(d){
-        d.Year = d3.time.year(d.Year)
-
-    });
-
-    var dataset = crossfilter(data);
-
-    var years = dataset.dimension(function(d){
-
-        return  d['Value']
-    });
-
-    console.log(years);
-
-    var min = d3.min(years);
-
-    var max = d3.max(years);
-
-    console.log(max);
-
-    var povertygroup = years.group();
-
-    console.log(povertygroup);
-
-    var povertyLevelChart = dc.barChart("#poverty-level-row-chart");
-
-
-    povertyLevelChart
-        .ordinalColors(["#79CED7", "#66AFB2", "#C96A23", "#D3D1C5", "#F5821F"])
-        .width(800)
-        .height(400)
-        .margins({top: 10, right: 50, bottom: 30, left: 40})
-        .dimension(years)
-        .group(povertygroup)
-        .elasticY(true)
-        .x(d3.scale.linear().domain([min, max]));
-
-    dc.renderAll()
-
-}*/
-queue()
+d3.queue()
     .defer(d3.json, "/statistics")
-    .await(makeGraphs);
+    .await(function(error,data){
+        cleanData(error,data);
+    });
 
-function makeGraphs(error, data) {
-    console.log(data);
+function cleanData(error,data){
     if (error) {
-        console.error("makeGraphs error on receiving dataset:", error.statusText);
+        console.error("There have been an error", error.statusText);
         throw error;
     }
 
-    //Clean donorsUSProjects data
-    var dateFormat = d3.time.format("%Y-%m-%d %H:%M");
-    data.forEach(function (d) {
-             d.date = dateFormat.parse(d.date);
-             d.date.setDate(1);
-             d.date.setHours(11)
+    array = [data[0].sitevisits,data[0].eventvisits,data[0].support,data[0].ratings];
+
+    var dateFormat = d3.time.format("%Y-%m-%dT%H:%M:%S");
+
+    array.forEach(function(e){
+
+        e.forEach(function (d) {
+
+           if (d.date === null || d.date === undefined) {
+                return null
+
+            } else{
+                d.date = dateFormat.parse(d.date);
+                d.date.setDate(1);
+                d.date.setHours(1);
+            }
+        })
     });
 
-    console.log(data);
+    siteVisitsGraphs(data[0].sitevisits);
+    eventVisitsGraphs(data[0].eventvisits);
+    supportGraphs(data[0].support);
+    ratingsGraphs(data[0].ratings);
 
-    //Create a Crossfilter instance
+}
+
+/* Function responsible to handle graph related to Total amount of Site Visits*/
+
+function siteVisitsGraphs(data) {
+
     var ndx = crossfilter(data);
 
+    var visitorsDim = ndx.dimension(function (d) {
 
-
-    //Define Dimensions
-    var dateDim = ndx.dimension(function (d) {
-
-        return d["date"];
+        return d.date;
 
     });
 
-    console.log(dateDim);
     var platformTypeDim = ndx.dimension(function (d) {
-        return d["platform"];
+        return d.platform;
     });
 
-    console.log(platformTypeDim);
     var deviceTypeDim = ndx.dimension(function (d) {
-        return d["device"];
+        return d.device;
     });
 
-    maxDate = dateDim.top(1)[0]['date'];
-    minDate = dateDim.bottom(1)[0]['date'];
+    // variables that specify earliest and latest dates to utilize in timeline graph
 
+    maxDate = visitorsDim.top(1)[0][1];
+    minDate = visitorsDim.bottom(1)[0][1];
 
-    //Calculate metrics
-    var totalVisitors = dateDim.group();
-    console.log(totalVisitors);
+    //Group dimensions
+
+    var totalVisitors = visitorsDim.group();
 
     var visitorsByPlatform = platformTypeDim.group();
 
-
-
-    console.log(visitorsByPlatform);
-
     var visitorsByDevice = deviceTypeDim.group();
 
-    /*var countyGroup = countryDim.group();
-    var valueGroup = figuresDim.group();
-    console.log(valueGroup);*/
-
-
     var all = ndx.groupAll();
-
-    //Define values (to be used in charts)
 
 
     //Charts
     var timeChart = dc.lineChart("#time-chart");
-    var pieChart = dc.pieChart("#pie-chart");
-    /*var numberProjectsND = dc.numberDisplay("#number-projects-nd");
-    var selectField = dc.selectMenu('#menu-select');
-    var selectField2 = dc.selectMenu('#menu-select2');*/
-
-
-    /*selectField
-        .dimension(resourceTypeDim)
-        .group(indicatorGroup);
-
-    selectField2
-        .dimension(countryDim)
-        .group(countyGroup);
-
-    numberProjectsND
-        .formatNumber(d3.format("d"))
-        .valueAccessor(function (d) {
-            return d;
-        })
-        .group(all);*/
+    var pieChartPlatform = dc.pieChart("#pie-chart");
+    var pieChartDevice = dc.pieChart('#pie-chart-devices');
+    var visitorsCount = dc.dataCount('.dc-data-count');
 
 
     timeChart
         .ordinalColors(["#C96A23"])
-        .width(1200)
-        .height(300)
+        .width(width)
+        .height(500)
+        .margins({top: 30, right: 50, bottom: 30, left: 50})
+        .dimension(visitorsDim)
+        .group(totalVisitors)
+        .renderArea(true)
+        .transitionDuration(500)
+        .x(d3.time.scale().domain([maxDate, minDate]))
+        .elasticY(true)
+        .xAxisLabel("2017")
+        .elasticX(true)
+        .yAxis().ticks(6);
+
+    pieChartPlatform
+        .width(700)
+        .height(550)
+        .radius(250)
+        .legend(dc.legend().x(600).y(400).itemHeight(20).gap(5))
+        .dimension(platformTypeDim)
+        .group(visitorsByPlatform)
+        .label(function(d){
+            return platformLabel(d,visitorsByPlatform);
+        })
+        .innerRadius(40)
+        .transitionDuration(500)
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .colorDomain([-1750, 1644])
+        .colorAccessor(function(d,i){return d.value;})
+        .legend(dc.legend().x(580).y(450).itemHeight(20).gap(5).legendText(function(d){
+                return platformLegend(d);
+        }));
+
+    pieChartDevice
+        .width(730)
+        .height(550)
+        .radius(250)
+        .dimension(deviceTypeDim)
+        .group(visitorsByDevice)
+        .label(function(d){
+            return deviceLabel(d,visitorsByDevice)
+
+        })
+        .innerRadius(40)
+        .transitionDuration(500)
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .colorAccessor(function(d,i){return d.value;})
+        .legend(dc.legend().x(600).y(400).itemHeight(20).gap(5).legendText(function(d){return deviceLegend(d)}));
+
+    visitorsCount
+        .dimension(ndx)
+        .group(all)
+        .html ({some: "%filter-count events selected <a class='btn btn-default btn-xs' href='javascript:dc.filterAll(); dc.renderAll();'  role='button'>Reset filters</a>", all: "%total-count Total Site Visits"});
+
+
+    dc.renderAll();
+
+}
+
+/*Function Responsible to handle graph related to amount of visits specific to Webcast Events*/
+
+function eventVisitsGraphs(data){
+
+    var ndx = crossfilter(data);
+
+       //Define Dimensions
+    var visitorsDim = ndx.dimension(function (d) {
+
+        return d.date;
+
+    });
+
+    var platformTypeDim = ndx.dimension(function (d) {
+        return d.platform;
+    });
+
+    var deviceTypeDim = ndx.dimension(function (d) {
+        return d.device;
+    });
+
+    var webcastDim = ndx.dimension(function(d){
+        return d['event_title'];
+    });
+
+    // variables that specify earliest and latest dates to utilize in timeline graph
+
+    maxDate = visitorsDim.top(1)[0][1];
+    minDate = visitorsDim.bottom(1)[0][1];
+
+    //Calculate metrics
+    var totalVisitors = visitorsDim.group();
+
+    var visitorsByPlatform = platformTypeDim.group();
+
+    var visitorsByDevice = deviceTypeDim.group();
+
+    var webcastGroup = webcastDim.group();
+
+
+    var all = ndx.groupAll();
+
+
+    //Charts
+    var timeChart = dc.lineChart("#events-time-chart");
+    var pieChartPlatform = dc.pieChart("#events-pie-chart");
+    var pieChartDevice = dc.pieChart('#events-pie-chart-devices');
+    var visitorsCount = dc.dataCount('.events-dc-data-count');
+    var selectMenu = dc.selectMenu('#menu-select');
+    var rowChart = dc.rowChart('#events-type-row-chart');
+
+
+    selectMenu
+        .dimension(webcastDim)
+        .group(webcastGroup);
+
+    timeChart
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .width(width)
+        .height(400)
+        .margins({top: 30, right: 50, bottom: 30, left: 50})
+        .dimension(visitorsDim)
+        .group(totalVisitors)
+        .renderArea(true)
+        .transitionDuration(500)
+        .x(d3.time.scale().domain([maxDate, minDate]))
+        .elasticY(true)
+        .xAxisLabel("2017")
+        .elasticX(true)
+        .yAxis().ticks(6);
+
+
+    pieChartPlatform
+        .width(720)
+        .height(400)
+        .radius(200)
+        .dimension(platformTypeDim)
+        .group(visitorsByPlatform)
+        .label(function(d){
+
+         return platformLabel(d,visitorsByPlatform);
+        })
+        .innerRadius(40)
+        .transitionDuration(500)
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .colorDomain([-1750, 1644])
+        .colorAccessor(function(d,i){return d.value;})
+        .legend(dc.legend().x(590).y(150).itemHeight(20).gap(5).legendText(function(d){return platformLegend(d);}));
+
+
+    pieChartDevice
+        .width(720)
+        .height(400)
+        .radius(200)
+        .dimension(deviceTypeDim)
+        .group(visitorsByDevice)
+        .label(function(d){
+
+         return deviceLabel(d,visitorsByDevice);
+
+
+        })
+        .innerRadius(40)
+        .transitionDuration(500)
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .colorDomain([-1750, 1644])
+        .colorAccessor(function(d,i){return d.value;})
+        .legend(dc.legend().x(590).y(150).itemHeight(20).gap(5).legendText(function(d){return deviceLegend(d)}));
+
+    rowChart
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .width(width)
+        .height(400)
+        .dimension(webcastDim)
+        .group(webcastGroup)
+        .xAxis().ticks(5);
+
+    visitorsCount
+        .dimension(ndx)
+        .group(all)
+        .html ({some: "%filter-count Visitors for the Event Selected <a class='btn btn-default btn-xs' href='javascript:dc.filterAll(); dc.renderAll();'  role='button'>Reset filters</a>", all: "%total-count Total Events Visits"});
+
+
+    /* The below line of code prevent users to click on the rowChart graph as such element is needed to visually compare
+    Webcast visits to each other and they are not related to the rest of the content
+     */
+
+    rowChart.onClick = function(){};
+
+dc.renderAll();
+
+}
+
+/*The below function is responsible for the handling of graph related to support requests sent from a specific webcast*/
+
+function supportGraphs(data){
+
+    var ndx = crossfilter(data);
+
+       //Define Dimensions
+    var dateDim = ndx.dimension(function (d) {
+
+        return d['date'];
+
+    });
+
+    var platformTypeDim = ndx.dimension(function (d) {
+        return d['platform'];
+    });
+
+    var deviceTypeDim = ndx.dimension(function (d) {
+        return d['device'];
+    });
+
+    var webcastDim = ndx.dimension(function(d){
+        return d['event_title'];
+    });
+
+    var issueTypeDim = ndx.dimension(function(d){
+        return d['issue_type'];
+    });
+
+    maxDate = dateDim.top(1)[0][1];
+    minDate = dateDim.bottom(1)[0][1];
+
+    var totalVisitors = dateDim.group();
+
+    var visitorsByPlatform = platformTypeDim.group();
+
+    var visitorsByDevice = deviceTypeDim.group();
+
+    var webcastGroup = webcastDim.group();
+
+    var issueTypeGroup = issueTypeDim.group();
+
+
+    var all = ndx.groupAll();
+
+    //Charts
+    var timeChart = dc.lineChart("#support-time-chart");
+    var pieChart = dc.pieChart("#support-pie-chart");
+    var pieChartDevice = dc.pieChart('#support-pie-chart-devices');
+    var pieChartSupportType = dc.pieChart('#support-pie-chart-issueType');
+    var visitorsCount = dc.dataCount('.support-dc-data-count');
+    var selectMenu = dc.selectMenu('#support-menu-select');
+    var rowChart = dc.rowChart('#support-type-row-chart');
+
+
+    selectMenu
+        .dimension(webcastDim)
+        .group(webcastGroup);
+
+
+    timeChart
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .width(width)
+        .height(400)
         .margins({top: 30, right: 50, bottom: 30, left: 50})
         .dimension(dateDim)
         .group(totalVisitors)
         .renderArea(true)
         .transitionDuration(500)
-        .x(d3.time.scale().domain([minDate, maxDate]))
+        .x(d3.time.scale().domain([maxDate, minDate]))
         .elasticY(true)
-        .xAxisLabel("Year")
+        .xAxisLabel("2017")
         .elasticX(true)
         .yAxis().ticks(6);
 
-    console.log(data.length);
+
 
     pieChart
-        .width(300)
-        .height(300)
-        .radius(150)
+        .width(450)
+        .height(400)
+        .radius(220)
         .dimension(platformTypeDim)
+        .group(visitorsByDevice)
+        .label(function(d){
+
+            var label = d.key;
+
+            var sum=getTotal(visitorsByDevice.all());
+
+            if(label === 'Linux armv8l'){
+                return 'Mobile' + "(" + Math.ceil((d.value/sum) * 100) + '%)'
+            }
+
+            else{
+                return label + "(" + Math.ceil((d.value/sum) * 100) + '%)'
+            }
+        })
+        .innerRadius(40)
+        .transitionDuration(500)
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .colorDomain([-1750, 1644])
+        .colorAccessor(function(d,i){return d.value;});
+
+
+    pieChartDevice
+        .width(450)
+        .height(400)
+        .radius(220)
+        .dimension(deviceTypeDim)
         .group(visitorsByPlatform)
         .label(function(d){
 
             var label = d.key;
 
-         return label + "(" + Math.ceil((d.value/data.length) * 100) + '%)'
+            var sum = getTotal(visitorsByPlatform.all());
+
+            if(label.includes('Android') === true){
+
+                return 'Mobile' + "(" + Math.ceil((d.value/sum) * 100) + '%)'
+
+            }
+
+            else if (label.includes('Trident')){
+
+                return 'IE/EDGE' + "(" + Math.ceil((d.value/sum) * 100) + '%)'
+
+            }
+
+            else if(label.includes('Firefox')){
+                return 'FIREFOX' + "(" + Math.ceil((d.value/sum) * 100) + '%)'
+            }
+
+            else if(label.includes('Chrome')){
+
+                return 'Chrome' + "(" + Math.ceil((d.value/sum) * 100) + '%)'
+            }
+
+            else{
+                return 'Other' + "(" + Math.ceil((d.value/sum) * 100) + '%)'
+            }
 
         })
         .innerRadius(40)
         .transitionDuration(500)
-        .ordinalColors(["#79CED7", "#66AFB2", "#C96A23", "#D3D1C5", "#F5821F"])
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
         .colorAccessor(function(d,i){return d.value;});
 
+    pieChartSupportType
+        .width(450)
+        .height(400)
+        .radius(220)
+        .dimension(issueTypeDim)
+        .group(issueTypeGroup)
+        .label(function(d){
 
-    /*resourceTypeChart
-        .ordinalColors(["#79CED7", "#66AFB2", "#C96A23", "#D3D1C5", "#F5821F"])
-        .width(300)
-        .height(250)
-        .dimension(resourceTypeDim)
-        .group(numProjectsByResourceType)
-        .xAxis().ticks(4);
+            var sum = getTotal(issueTypeGroup.all());
 
-    povertyLevelChart
-        .ordinalColors(["#79CED7", "#66AFB2", "#C96A23", "#D3D1C5", "#F5821F"])
-        .width(300)
-        .height(250)
-        .dimension(povertyLevelDim)
-        .group(numProjectsByPovertyLevel)
-        .xAxis().ticks(4);
-
-    fundingStatusChart
-        .ordinalColors(["#79CED7", "#66AFB2", "#C96A23", "#D3D1C5", "#F5821F"])
-        .height(220)
-        .radius(90)
-        .innerRadius(40)
-        .transitionDuration(1500)
-        .dimension(fundingStatus)
-        .group(numProjectsByFundingStatus);*/
+            if(d.key === 'User Interface Problem'){
 
 
-    dc.renderAll();
+
+           return 'UI PROBLEM' + "(" + Math.ceil((d.value/sum) * 100) + '%)';
+
+            }
+            else{
+
+           return d.key + "(" + Math.ceil((d.value/sum) * 100) + '%)';
+            }
+
+        })
+        .innerRadius(45)
+        .transitionDuration(500)
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .colorDomain([-1750, 1644])
+        .colorAccessor(function(d,i){return d.value;});
+
+    rowChart
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .width(width)
+        .height(350)
+        .dimension(webcastDim)
+        .group(webcastGroup)
+        .xAxis().ticks(5);
+
+    visitorsCount
+        .dimension(ndx)
+        .group(all)
+        .html ({some: "%filter-count Support Requests <a class='btn btn-default btn-xs' href='javascript:dc.filterAll(); dc.renderAll();'  role='button'>Reset filters</a>", all: "%total-count Total Support Requests"});
+
+
+dc.renderAll();
+
+ /* The below line of code prevent users to click on the rowChart graph as such element is needed to visually compare
+    amount of Support Requests per Webcast Event and they are not directly related to the rest of the data within the page
+     */
+
+rowChart.onClick = function(){};
+
 }
 
+
+/* The below function is responsbile for the graphs that calculate the ratings score for each webcast and
+comparison between single webcasts events
+ */
+
+function ratingsGraphs(data){
+
+    var ndx = crossfilter(data);
+
+
+    var ratingsDim = ndx.dimension(function (d) {
+        return d.rating;
+    });
+
+    var ratingsValue = ndx.dimension(function (d) {
+        return d.rating;
+    });
+
+    var webcastDimension = ndx.dimension(function(d){
+        return d['event_title'];
+    });
+
+    var totalRatings = ratingsDim.group();
+
+    var ratingsValueGroup = ratingsValue.group();
+
+    var test = ratingsValueGroup.reduceSum(function(d){return d['rating']});
+
+    var webcastGroupon = webcastDimension.group();
+
+    var all = ndx.groupAll();
+
+    //Charts
+
+    var pieChart = dc.pieChart("#ratings-pie-chart");
+    var visitorsCount = dc.dataCount('.ratings-dc-data-count');
+    var rowChart = dc.rowChart('#ratings-type-row-chart');
+    var ratingsSelect = dc.selectMenu('#ratings-menu-select');
+    var ratingsTotal = dc.numberDisplay('#ratings-header');
+
+    pieChart
+        .width(700)
+        .height(400)
+        .radius(200)
+        .dimension(ratingsDim)
+        .group(totalRatings)
+        .label(function(d){
+
+             var sum = getTotal(totalRatings.all());
+
+                return Math.ceil((d.value/sum) * 100) + '%'
+
+
+        })
+        .innerRadius(40)
+        .transitionDuration(500)
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .colorDomain([0, 1644])
+        .colorAccessor(function(d,i){return d.value;})
+        .legend(dc.legend().x(600).y(150).itemHeight(20).gap(5).legendText(function(d){
+
+                return d.name + " Stars";
+            }));
+
+
+    ratingsSelect
+        .dimension(webcastDimension)
+        .group(webcastGroupon);
+
+    rowChart
+        .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .width(width)
+        .height(350)
+        .dimension(webcastDimension)
+        .group(webcastGroupon)
+        .xAxis().ticks(5);
+
+    visitorsCount
+        .dimension(ndx)
+        .group(all)
+        .html ({some: "%filter-count Ratings for this Event <a class='btn btn-default btn-xs' href='javascript:dc.filterAll(); dc.renderAll();'  role='button'>Reset filters</a>", all: "%total-count Total Ratings"});
+
+    ratingsTotal
+        .dimension(ratingsDim)
+        .group(test)
+
+        .html({
+            one: 'The Total rating is %number' ,
+            some:'Score: %number <span class="glyphicon glyphicon-star"></span>',
+            none : 0
+        })
+        .valueAccessor(function(d){
+            return getTotal(test.all())/getTotal(totalRatings.all())
+        });
+
+     /* The below lines of code prevent users to click on the rowChart and pieChart graphs as such elements are needed to visually compare
+    amount of ratings and scores per Webcast Event and they are not directly related to the rest of the data within the page
+     */
+
+    pieChart.onClick = function(){};
+
+    rowChart.onClick = function(){};
+
+dc.renderAll();
+
+}

@@ -1,0 +1,169 @@
+body{
+    text-transform: uppercase!important;
+    background-color:grey;
+}
+
+
+div.chart-stage div.dc-data-count{
+
+    font-size:3em;
+    width:100%;
+}
+
+    /* Index Page Selectors*/
+    /*Navigation Selections*/
+    div.main-website-navbar {
+        background: white;
+        border: none;
+        padding-bottom: 15px;
+
+    }
+
+    footer.container-fluid{
+        padding:0;
+    }
+
+    footer div.navbar.navbar-default {
+        background: white;
+        border: none;
+        margin-bottom: 0;
+        padding:30px;
+    }
+
+    .navbar-header{
+        width:30%;
+    }
+
+    div.container div.main-website-navbar div.navigation-list ul.navbar-nav {
+        width: 70%;
+        margin: 0 auto;
+        padding: 15px 0 0 50px;
+        border: none;
+        font-size: 1.2em;
+        color: black;
+        display: block;
+    }
+    div.main-website-navbar .navbar-header{
+        width:25%;
+    }
+
+    div.container div.main-website-navbar div.navigation-list ul.navbar-nav {
+        width:60%;
+        margin:0 0 0 100px;
+        padding: 15px 0 0 30px;
+        border: none;
+        font-size: 1.2em;
+        color: black;
+        display:block!important;
+
+    }
+
+    footer div.navbar.navbar-default ul {
+        margin: 0 20% 0 20%;
+        border: none;
+        color: black;
+    }
+
+    .main-website-navbar div ul li {
+        padding-top: 15px;
+        height: 80px;
+        width: 200px;
+        text-align: center;
+        border-left: 1px solid black;
+        border-right:none;
+        transition: border 0.5s ease, font-weight 0.5s ease;
+    }
+
+    footer div.navbar.navbar-default ul li {
+        font-size: 0.9em;
+        height: 40px;
+        width: auto;
+        text-align: center;
+    }
+
+    footer div.navbar.navbar-default ul li:not(:first-child) {
+        border-left: 1px solid black;
+    }
+
+    footer div.navbar.navbar-default ul li a {
+        padding: 8px 10px 0 10px;
+    }
+
+    .main-website-navbar div ul li:hover {
+        border-bottom: 5px solid black;
+        font-weight: bold;
+    }
+
+    .main-website-navbar img.menu-header-image {
+        margin-top: 10px;
+        padding: 10px 0 10px 10px;
+        width: 400px;
+        height:80px;
+
+    }
+
+    ul.nav-tabs li a {
+        color: rgb(34, 34, 34);
+        width: auto;
+        height: 110px;
+        font-size: 1.5em;
+        text-decoration: none;
+        padding-top: 50px;
+    }
+
+    ul.nav-tabs li img{
+        margin:20px;
+    }
+
+.reports-container{
+    background-color:white;
+}
+
+.tab-header{
+    font-size:3em;
+    margin:10px 0;
+}
+
+
+.improve-margins{
+    margin:50px 0;
+}
+
+div.chart-title {
+    font-size:1.3em;
+    margin-bottom:10px;
+}
+
+div.chart-wrapper div.chart-stage div.dc-chart svg g g text , div.chart-wrapper div.chart-stage div.dc-chart svg g text{
+    fill:black;
+    font-size:1em;
+}
+
+div.chart-stage div.dc-chart select {
+    font-size:1.5em;
+}
+
+#ratings-header{
+    margin-top: 18%;
+    margin-left: 10%;
+    font-size: 2em;
+}
+
+.borders{
+    border: 6px grey solid;
+}
+
+.padding{
+    padding:20px;
+}
+
+.dc-legend{
+    font-size:1.3em;
+}
+
+.margin-left{
+    margin-left:75px;
+}
+
+
+
