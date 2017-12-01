@@ -502,9 +502,10 @@ function ratingsGraphs(data){
 
     var ratingsValueGroup = ratingsValue.group();
 
-    var test = ratingsValueGroup.reduceSum(function(d){return d['rating']});
+    var totalRatingsGroup = ratingsValueGroup.reduceSum(function(d){return d['rating']});
 
-    var webcastGroupon = webcastDimension.group();
+    var webcastGroup = webcastDimension.group();
+
 
     var all = ndx.groupAll();
 
@@ -543,14 +544,14 @@ function ratingsGraphs(data){
 
     ratingsSelect
         .dimension(webcastDimension)
-        .group(webcastGroupon);
+        .group(webcastGroup);
 
     rowChart
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .width(width)
         .height(350)
         .dimension(webcastDimension)
-        .group(webcastGroupon)
+        .group(webcastGroup)
         .xAxis().ticks(5);
 
     visitorsCount
@@ -560,7 +561,7 @@ function ratingsGraphs(data){
 
     ratingsTotal
         .dimension(ratingsDim)
-        .group(test)
+        .group(totalRatingsGroup)
 
         .html({
             one: 'The Total rating is %number' ,
@@ -568,7 +569,7 @@ function ratingsGraphs(data){
             none : 0
         })
         .valueAccessor(function(d){
-            return getTotal(test.all())/getTotal(totalRatings.all())
+            return getTotal(totalRatingsGroup.all())/getTotal(totalRatings.all())
         });
 
      /* The below lines of code prevent users to click on the rowChart and pieChart graphs as such elements are needed to visually compare

@@ -133,9 +133,8 @@ $('#tour-button').on('click',function(){
 
        var currentListElement = $('li.active');
 
-       // if statement check if the tab-pane that includes the target element does contain the class "active"
+       // The "if" statement checks whether the tab-pane that includes the target element does contain the class "active"
        // which is responsible for activating the visibility of the tab in the page
-
 
        if( $(targetElement).parents('.tab-pane').prop('class').includes('active')===false){
 
