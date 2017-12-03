@@ -167,7 +167,7 @@ function eventVisitsGraphs(data){
         return d['event_title'];
     });
 
-    // variables that specify earliest and latest dates to utilize in timeline graph
+    // variables that specify earliest and latest dates to utilize in Timeline graph
 
     maxDate = visitorsDim.top(1)[0][1];
     minDate = visitorsDim.bottom(1)[0][1];
@@ -233,7 +233,7 @@ function eventVisitsGraphs(data){
 
 
     pieChartDevice
-        .width(720)
+        .width(700)
         .height(400)
         .radius(200)
         .dimension(deviceTypeDim)

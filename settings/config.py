@@ -1,5 +1,0 @@
-MYSQL_HOST = 'lucataproejctnew.c66082eq1miy.eu-west-2.rds.amazonaws.com'
-MYSQL_USER = 'marver'
-MYSQL_PASSWORD = 'Lucata05111950666'
-MYSQL_DB = 'marver'
-MYSQL_PORT = '3306'
