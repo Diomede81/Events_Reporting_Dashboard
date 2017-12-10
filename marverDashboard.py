@@ -3,8 +3,7 @@ from flask import render_template,request
 import MySQLdb
 from datetime import datetime,date,timedelta
 import json
-from settings import config
-import os
+from config import *
 
 
 
@@ -27,6 +26,11 @@ db = MySQLdb.connect(host=os.getenv('MYSQL_HOST'),
                      passwd=os.getenv('MYSQL_PASSWORD'),
                      db=os.getenv('MYSQL_DB'))
 
+"""db = MySQLdb.connect(host=MYSQL_HOST,
+                     user=MYSQL_USER,
+                     passwd=MYSQL_PASSWORD,
+                     db=MYSQL_DB)"""
+
 @app.route("/")
 def index():
 
@@ -35,17 +39,17 @@ def index():
 
 @app.route("/statistics")
 def getData():
-    curs = db.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('''SELECT * FROM eventsmanager_app_sitevisits''')
-    sitesvisits = curs.fetchall()
-    curs.execute('''SELECT * FROM eventsmanager_app_webcastvisits''')
-    eventvisits = curs.fetchall()
-    curs.execute('''SELECT * FROM eventsmanager_app_support''')
-    support = curs.fetchall()
-    curs.execute('''SELECT * FROM eventsmanager_app_eventrating''')
-    ratings = curs.fetchall()
-    events = json.dumps([{'sitevisits':sitesvisits,'eventvisits':eventvisits,'support':support,'ratings':ratings}],cls=DateTimeEncoder)
-    return events
+        curs = db.cursor(MySQLdb.cursors.DictCursor)
+        curs.execute('''SELECT * FROM eventsmanager_app_sitevisits''')
+        sitesvisits = curs.fetchall()
+        curs.execute('''SELECT * FROM eventsmanager_app_webcastvisits''')
+        eventvisits = curs.fetchall()
+        curs.execute('''SELECT * FROM eventsmanager_app_support''')
+        support = curs.fetchall()
+        curs.execute('''SELECT * FROM eventsmanager_app_eventrating''')
+        ratings = curs.fetchall()
+        events = json.dumps([{'sitevisits':sitesvisits,'eventvisits':eventvisits,'support':support,'ratings':ratings}],cls=DateTimeEncoder)
+        return events
 
 
 if __name__ == "__main__":

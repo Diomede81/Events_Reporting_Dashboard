@@ -98,7 +98,7 @@ function siteVisitsGraphs(data) {
         .yAxis().ticks(6);
 
     pieChartPlatform
-        .width(700)
+        .width(pieChartWidth)
         .height(550)
         .radius(250)
         .legend(dc.legend().x(600).y(400).itemHeight(20).gap(5))
@@ -117,7 +117,7 @@ function siteVisitsGraphs(data) {
         }));
 
     pieChartDevice
-        .width(730)
+        .width(pieChartWidth)
         .height(550)
         .radius(250)
         .dimension(deviceTypeDim)

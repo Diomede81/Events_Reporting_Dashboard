@@ -17,6 +17,8 @@ return total
 
 var width = document.getElementById('graphContainer').offsetWidth - 100;
 
+var pieChartWidth = document.getElementsByClassName('pie-chart-stage').offsetWidth;
+
 //function that enable re-utilization of same routine for multiple graphs within the application
 
 function platformLegend(d){
