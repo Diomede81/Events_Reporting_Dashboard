@@ -1,10 +1,10 @@
 from flask import Flask,jsonify
 from flask import render_template,request
-from flask_mysqldb import MySQL
 import MySQLdb
 from datetime import datetime,date,timedelta
 import json
 from settings import config
+import os
 
 
 
@@ -22,10 +22,10 @@ class DateTimeEncoder(json.JSONEncoder):
 
 app = Flask(__name__)
 
-db = MySQLdb.connect(host=config.MYSQL_HOST,
-                     user=config.MYSQL_USER,
-                     passwd=config.MYSQL_PASSWORD,
-                     db=config.MYSQL_DB)
+db = MySQLdb.connect(host=os.getenv('MYSQL_HOST'),
+                     user=os.getenv('MYSQL_USER'),
+                     passwd=os.getenv('MYSQL_PASSWORD'),
+                     db=os.getenv('MYSQL_DB'))
 
 @app.route("/")
 def index():
