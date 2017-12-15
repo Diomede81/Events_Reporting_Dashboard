@@ -5,3 +5,5 @@
 .idea
 config.py
 config.pyc
+static/lib/bower_components
+dashboard_env

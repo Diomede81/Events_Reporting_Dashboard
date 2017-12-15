@@ -3,7 +3,7 @@ from flask import render_template,request
 import MySQLdb
 from datetime import datetime,date,timedelta
 import json
-from config import *
+import os
 
 
 
@@ -26,10 +26,6 @@ db = MySQLdb.connect(host=os.getenv('MYSQL_HOST'),
                      passwd=os.getenv('MYSQL_PASSWORD'),
                      db=os.getenv('MYSQL_DB'))
 
-"""db = MySQLdb.connect(host=MYSQL_HOST,
-                     user=MYSQL_USER,
-                     passwd=MYSQL_PASSWORD,
-                     db=MYSQL_DB)"""
 
 @app.route("/")
 def index():

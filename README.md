@@ -39,6 +39,8 @@ You can access a demo on this [link](https://events-dashboard.herokuapp.com/)
           bower install
           ```
           this will install all the dependencies that are listed in the bower.json file in the root folder
+    4. Please change files path for the Scripts and Stylesheets in order to match the files required with the files installed in the
+        Bower_components directory.
 
 2. Within the Settings folder, open the file named config.py and add the information related to your project(Database details)
 before you go further as the project will not work without at least a database configured(you can utilize MySQL lite which can be downloaded [here](https://www.sqlite.org/)

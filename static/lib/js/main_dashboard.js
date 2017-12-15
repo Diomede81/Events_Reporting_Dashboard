@@ -8,6 +8,7 @@ d3.queue()
     });
 
 function cleanData(error,data){
+    console.log(data);
     if (error) {
         console.error("There have been an error", error.statusText);
         throw error;
@@ -98,7 +99,7 @@ function siteVisitsGraphs(data) {
         .yAxis().ticks(6);
 
     pieChartPlatform
-        .width(pieChartWidth)
+        .width(720)
         .height(550)
         .radius(250)
         .legend(dc.legend().x(600).y(400).itemHeight(20).gap(5))
@@ -117,7 +118,7 @@ function siteVisitsGraphs(data) {
         }));
 
     pieChartDevice
-        .width(pieChartWidth)
+        .width(720)
         .height(550)
         .radius(250)
         .dimension(deviceTypeDim)
