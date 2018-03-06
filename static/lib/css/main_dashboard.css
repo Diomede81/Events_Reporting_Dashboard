@@ -3,7 +3,6 @@ body{
     background-color:grey;
 }
 
-
 div.chart-stage div.dc-data-count{
 
     font-size:3em;
@@ -117,6 +116,7 @@ div.chart-stage div.dc-data-count{
 
 .reports-container{
     background-color:white;
+    padding-top:7%;
 }
 
 .tab-header{
@@ -274,6 +274,51 @@ div.introjs-progress > div.introjs-progressbar{
   -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
   transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
 }
+
+/* Layout.html selectors */
+
+div.main-website-navbar {
+        background: white;
+        border: none;
+        padding-bottom: 15px;
+
+    }
+
+div.main-website-navbar .navbar-header{
+        width:25%;
+    }
+
+    div.container div.main-website-navbar div.navigation-list ul.navbar-nav {
+        width:65%;
+        margin:0 0 0 100px;
+        padding: 15px 0 0 30px;
+        border: none;
+        font-size: 1em;
+        color: black;
+        display:block!important;
+    }
+
+      .main-website-navbar div ul li {
+        padding-top: 15px;
+        height: 80px;
+        width: 175px;
+        text-align: center;
+        border-left: 1px solid black;
+        border-right:none;
+        transition: border 0.5s ease, font-weight 0.5s ease;
+    }
+
+       .main-website-navbar div ul li:hover {
+        border-bottom: 5px solid black;
+        font-weight: bold;
+    }
+
+       .main-website-navbar img.menu-header-image {
+        margin-top: 10px;
+        padding: 10px 0 10px 10px;
+        width: 400px;
+        height:80px;
+    }
 
 
 
