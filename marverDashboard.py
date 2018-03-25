@@ -1,7 +1,6 @@
 import json
 import os
 from datetime import datetime, date, timedelta
-from dateutil import parser
 import MySQLdb
 from flask import Flask
 from flask import render_template,request
