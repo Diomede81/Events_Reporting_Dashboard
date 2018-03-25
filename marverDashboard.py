@@ -4,7 +4,7 @@ from datetime import datetime, date, timedelta
 import MySQLdb
 from flask import Flask
 from flask import render_template,request
-from settings.config import *
+#from settings.config import *
 
 
 class DateTimeEncoder(json.JSONEncoder):
