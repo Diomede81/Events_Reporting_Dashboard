@@ -1,8 +1,22 @@
 
+var startdate;
+var endDate;
+var dateStartSet = sessionStorage.getItem('startDate');
+var dateEndSet = sessionStorage.getItem('endDate');
 
+if(dateStartSet === null){
+
+    startdate = Date.today().add(-6).months().toString('yyyy-M-d');
+    endDate = Date.today().toString('yyyy-M-d')
+
+
+} else{
+     startdate = dateStartSet;
+    endDate = dateEndSet;
+}
 
 d3.queue()
-    .defer(d3.json, "/statistics")
+    .defer(d3.json, "/statistics" + "?startDate=" + startdate + "&endDate=" + endDate )
     .await(function(error,data){
         cleanData(error,data);
     });
@@ -33,108 +47,142 @@ function cleanData(error,data){
         })
     });
     $('#loader-overlay').hide();
+
     siteVisitsGraphs(data[0].sitevisits);
     eventVisitsGraphs(data[0].eventvisits);
     supportGraphs(data[0].support);
     ratingsGraphs(data[0].ratings);
 
+
 }
 
 /* Function responsible to handle graph related to Total amount of Site Visits*/
 
+width = (window.innerWidth * 90) / 100;
+    height = (window.innerHeight * 50) / 100;
+
+
+
 function siteVisitsGraphs(data) {
+    timeNow = new Date().getTime();
 
-    var ndx = crossfilter(data);
+    var visitors = crossfilter(data);
 
-    var visitorsDim = ndx.dimension(function (d) {
-
-        return d.date;
+    var visitorsDim = visitors.dimension(function (d) {
+           return d.date
 
     });
 
-    var platformTypeDim = ndx.dimension(function (d) {
-        return d.platform;
+    var platformTypeDim = visitors.dimension(function (d) {
+           return d.platform
     });
 
-    var deviceTypeDim = ndx.dimension(function (d) {
-        return d.device;
+    var deviceTypeDim = visitors.dimension(function (d) {
+
+           return d.device
+
     });
+
+    var visitorsDimFiltered = visitorsDim.filter(function(d){
+
+
+        var datecalculation = d.getTime();
+
+        if(timeNow - datecalculation <= 15778476000){
+            return d;
+        }
+
+
+    });
+
+    console.log(visitorsDimFiltered);
 
     // variables that specify earliest and latest dates to utilize in timeline graph
 
-    maxDate = visitorsDim.top(1)[0][1];
-    minDate = visitorsDim.bottom(1)[0][1];
+    maxDate = visitorsDimFiltered.top(1)[0];
+    minDate = visitorsDimFiltered.bottom(1)[0];
 
     //Group dimensions
 
-    var totalVisitors = visitorsDim.group();
+    var totalVisitors = visitorsDimFiltered.group();
 
     var visitorsByPlatform = platformTypeDim.group();
 
     var visitorsByDevice = deviceTypeDim.group();
 
-    var all = ndx.groupAll();
+    var all = visitors.groupAll();
 
 
     //Charts
-    var timeChart = dc.lineChart("#time-chart");
+    var timelineChart = dc.lineChart("#time-chart");
     var pieChartPlatform = dc.pieChart("#pie-chart");
     var pieChartDevice = dc.pieChart('#pie-chart-devices');
     var visitorsCount = dc.dataCount('.dc-data-count');
+    console.log(width);
+    console.log(height);
 
 
-    timeChart
+
+    timelineChart
         .ordinalColors(["#C96A23"])
         .width(width)
-        .height(500)
+        .height(height)
         .margins({top: 30, right: 50, bottom: 30, left: 50})
-        .dimension(visitorsDim)
+        .dimension(visitorsDimFiltered)
         .group(totalVisitors)
         .renderArea(true)
         .transitionDuration(500)
         .x(d3.time.scale().domain([maxDate, minDate]))
         .elasticY(true)
-        .xAxisLabel("2017")
+        .xAxisLabel("Months")
         .elasticX(true)
         .yAxis().ticks(6);
 
+    var pieWidth =  400;
+    var pieHeight = 400;
+
+   console.log(pieWidth);
+
+
     pieChartPlatform
-        .width(720)
-        .height(550)
-        .radius(250)
-        .legend(dc.legend().x(600).y(400).itemHeight(20).gap(5))
+        .width(700)
+        .height(400)
+        .radius(200)
         .dimension(platformTypeDim)
         .group(visitorsByPlatform)
         .label(function(d){
-            return platformLabel(d,visitorsByPlatform);
+
+         return platformLabel(d,visitorsByPlatform);
         })
         .innerRadius(40)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
         .colorAccessor(function(d,i){return d.value;})
-        .legend(dc.legend().x(580).y(450).itemHeight(20).gap(5).legendText(function(d){
-                return platformLegend(d);
-        }));
+        .legend(dc.legend().x(590).y(150).itemHeight(20).gap(5).legendText(function(d){return platformLegend(d);}));
+
 
     pieChartDevice
-        .width(720)
-        .height(550)
-        .radius(250)
+        .width(400)
+        .height(400)
+        .radius(200)
         .dimension(deviceTypeDim)
         .group(visitorsByDevice)
         .label(function(d){
-            return deviceLabel(d,visitorsByDevice)
+
+         return deviceLabel(d,visitorsByDevice);
+
 
         })
         .innerRadius(40)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
+        .colorDomain([-1750, 1644])
         .colorAccessor(function(d,i){return d.value;})
-        .legend(dc.legend().x(600).y(400).itemHeight(20).gap(5).legendText(function(d){return deviceLegend(d)}));
+        .legend(dc.legend().x(590).y(150).itemHeight(20).gap(5).legendText(function(d){return deviceLegend(d)}));
 
     visitorsCount
-        .dimension(ndx)
+        .dimension(visitors)
         .group(all)
         .html ({some: "%filter-count events selected <a class='btn btn-default btn-xs' href='javascript:dc.filterAll(); dc.renderAll();'  role='button'>Reset filters</a>", all: "%total-count Total Site Visits"});
 
@@ -142,6 +190,8 @@ function siteVisitsGraphs(data) {
     dc.renderAll();
 
 }
+
+
 
 /*Function Responsible to handle graph related to amount of visits specific to Webcast Events*/
 
@@ -187,7 +237,7 @@ function eventVisitsGraphs(data){
 
 
     //Charts
-    var timeChart = dc.lineChart("#events-time-chart");
+    var timelineChart = dc.lineChart("#events-time-chart");
     var pieChartPlatform = dc.pieChart("#events-pie-chart");
     var pieChartDevice = dc.pieChart('#events-pie-chart-devices');
     var visitorsCount = dc.dataCount('.events-dc-data-count');
@@ -199,7 +249,7 @@ function eventVisitsGraphs(data){
         .dimension(webcastDim)
         .group(webcastGroup);
 
-    timeChart
+    timelineChart
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .width(width)
         .height(400)
@@ -584,6 +634,9 @@ function ratingsGraphs(data){
 dc.renderAll();
 
 }
+
+
+
 
 
 
