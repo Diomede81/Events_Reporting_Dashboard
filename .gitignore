@@ -7,3 +7,5 @@ config.py
 config.pyc
 static/lib/bower_components
 dashboardenv
+settings/config.py
+settings/config.pyc
