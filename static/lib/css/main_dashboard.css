@@ -61,6 +61,7 @@ div.chart-stage div.dc-data-count{
         margin: 0 20% 0 20%;
         border: none;
         color: black;
+        width:70%;
     }
 
     .main-website-navbar div ul li {
@@ -104,10 +105,8 @@ div.chart-stage div.dc-data-count{
     ul.nav-tabs li a {
         color: rgb(34, 34, 34);
         width: auto;
-        height: 110px;
         font-size: 1.5em;
         text-decoration: none;
-        padding-top: 50px;
     }
 
     ul.nav-tabs li img{
@@ -116,7 +115,6 @@ div.chart-stage div.dc-data-count{
 
 .reports-container{
     background-color:white;
-    padding-top:7%;
 }
 
 .tab-header{
@@ -146,7 +144,7 @@ div.chart-stage div.dc-chart select {
 #ratings-header{
     margin-top: 18%;
     margin-left: 10%;
-    font-size: 2em;
+    font-size: 1.8em;
 }
 
 .borders{
@@ -170,7 +168,7 @@ div.chart-stage div.dc-chart select {
     background:#4D7B61;
     color:white;
     font-size:1.6em;
-    right:20px;
+    right:0;
     top:30px;
     -webkit-transition: background 0.2s ease;
     -moz-transition: background 0.2s ease;
@@ -320,5 +318,54 @@ div.main-website-navbar .navbar-header{
         height:80px;
     }
 
+       .green {
+           color: rgb(75, 123, 97)
+       }
+
+       .red{
+           color:red;
+       }
+
+       .no-margin{
+           margin:0;
+       }
+
+       .no-padding-left{
+           padding-left:0;
+       }
+
+       .date-selection-form-container{
+        padding:100px 60px 20px 60px;
+           background:white;
+       }
+
+       .dates-range-text{
+
+           padding-bottom:20px;
+       }
+
+       .container-fluid{
+           padding-left:60px;
+           padding-right:60px;
+       }
+
+       .no-margin-padding-left{
+           padding-left:60px;
+           padding-right:0;
+           margin-left:0;
+           margin-right:0;
+       }
 
 
+       @media only screen and (max-width:1300px) {
+
+           .tab-header{
+               font-size:2.5em;
+           }
+
+           footer div.navbar.navbar-default ul{
+               width:80%;
+               margin: 0 10% 0 10%;
+           }
+
+       }

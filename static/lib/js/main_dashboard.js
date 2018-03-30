@@ -1,8 +1,9 @@
-
+console.log(window.navigator.vendor);
 var startdate;
 var endDate;
 var dateStartSet = sessionStorage.getItem('startDate');
 var dateEndSet = sessionStorage.getItem('endDate');
+var dataGlobal;
 
 if(dateStartSet === null){
 
@@ -15,6 +16,8 @@ if(dateStartSet === null){
     endDate = dateEndSet;
 }
 
+function loadData(pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height){
+
 d3.queue()
     .defer(d3.json, "/statistics" + "?startDate=" + startdate + "&endDate=" + endDate )
     .await(function(error,data){
@@ -25,6 +28,7 @@ function cleanData(error,data){
     console.log(data);
     if (error) {
         console.error("There have been an error", error.statusText);
+        $('#loader-overlay').hide();
         throw error;
     }
 
@@ -48,22 +52,102 @@ function cleanData(error,data){
     });
     $('#loader-overlay').hide();
 
-    siteVisitsGraphs(data[0].sitevisits);
-    eventVisitsGraphs(data[0].eventvisits);
-    supportGraphs(data[0].support);
-    ratingsGraphs(data[0].ratings);
+    dataGlobal = data;
 
-
+    loadGraphs(data,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height)
 }
+}
+
+
+
+var pieWidth;
+var pieHeight;
+var pieRadius;
+var legendX;
+var legendY;
+var pieInnerRadius;
+var width;
+var height;
+
+function loadGraphs(data,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height){
+    siteVisitsGraphs(data[0].sitevisits,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height);
+    eventVisitsGraphs(data[0].eventvisits,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height);
+    supportGraphs(data[0].support,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height);
+    ratingsGraphs(data[0].ratings,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height);
+    $('#loader-overlay').hide();
+}
+
+
+
+
+width = (window.innerWidth * 80) / 100;
+height = (window.innerHeight * 50) / 100;
+
+
+if (window.innerWidth > 1900){
+   pieWidth = 700;
+   pieHeight = 400;
+   pieRadius = 200;
+   legendX = 580;
+   legendY = 159;
+   pieInnerRadius = 40;
+   }
+   else if (window.innerWidth > 1300){
+   pieWidth = 600;
+   pieHeight = 400;
+   pieRadius = 170;
+   legendX = 480;
+   legendY = 159;
+   pieInnerRadius = 30;
+} else{
+    pieWidth = 500;
+   pieHeight = 300;
+   pieRadius = 150;
+   legendX = 0;
+   legendY = 159;
+   pieInnerRadius = 10;
+}
+
+loadData(pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height);
+
+window.onresize = function(){
+    /*Variables and statements responsible for graphs adaptive size based on browser window */
+
+width = (window.innerWidth * 80) / 100;
+height = (window.innerHeight * 50) / 100;
+
+
+if (window.innerWidth > 1900){
+   pieWidth = 700;
+   pieHeight = 400;
+   pieRadius = 200;
+   legendX = 580;
+   legendY = 159;
+   pieInnerRadius = 40;
+   }
+   else if (window.innerWidth > 1300){
+   pieWidth = 600;
+   pieHeight = 400;
+   pieRadius = 170;
+   legendX = 480;
+   legendY = 159;
+   pieInnerRadius = 30;
+} else{
+    pieWidth = 500;
+   pieHeight = 300;
+   pieRadius = 150;
+   legendX = 0;
+   legendY = 159;
+   pieInnerRadius = 10;
+}
+    $('#loader-overlay').show();
+    loadGraphs(dataGlobal,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height);
+};
+
 
 /* Function responsible to handle graph related to Total amount of Site Visits*/
 
-width = (window.innerWidth * 90) / 100;
-    height = (window.innerHeight * 50) / 100;
-
-
-
-function siteVisitsGraphs(data) {
+function siteVisitsGraphs(data, pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height) {
     timeNow = new Date().getTime();
 
     var visitors = crossfilter(data);
@@ -83,28 +167,17 @@ function siteVisitsGraphs(data) {
 
     });
 
-    var visitorsDimFiltered = visitorsDim.filter(function(d){
 
 
-        var datecalculation = d.getTime();
-
-        if(timeNow - datecalculation <= 15778476000){
-            return d;
-        }
-
-
-    });
-
-    console.log(visitorsDimFiltered);
 
     // variables that specify earliest and latest dates to utilize in timeline graph
 
-    maxDate = visitorsDimFiltered.top(1)[0];
-    minDate = visitorsDimFiltered.bottom(1)[0];
+    maxDate = visitorsDim.top(1)[0];
+    minDate = visitorsDim.bottom(1)[0];
 
     //Group dimensions
 
-    var totalVisitors = visitorsDimFiltered.group();
+    var totalVisitors = visitorsDim.group();
 
     var visitorsByPlatform = platformTypeDim.group();
 
@@ -118,8 +191,6 @@ function siteVisitsGraphs(data) {
     var pieChartPlatform = dc.pieChart("#pie-chart");
     var pieChartDevice = dc.pieChart('#pie-chart-devices');
     var visitorsCount = dc.dataCount('.dc-data-count');
-    console.log(width);
-    console.log(height);
 
 
 
@@ -128,7 +199,7 @@ function siteVisitsGraphs(data) {
         .width(width)
         .height(height)
         .margins({top: 30, right: 50, bottom: 30, left: 50})
-        .dimension(visitorsDimFiltered)
+        .dimension(visitorsDim)
         .group(totalVisitors)
         .renderArea(true)
         .transitionDuration(500)
@@ -138,34 +209,29 @@ function siteVisitsGraphs(data) {
         .elasticX(true)
         .yAxis().ticks(6);
 
-    var pieWidth =  400;
-    var pieHeight = 400;
-
-   console.log(pieWidth);
-
 
     pieChartPlatform
-        .width(700)
-        .height(400)
-        .radius(200)
+        .width(pieWidth)
+        .height(pieHeight)
+        .radius(pieRadius)
         .dimension(platformTypeDim)
         .group(visitorsByPlatform)
         .label(function(d){
 
          return platformLabel(d,visitorsByPlatform);
         })
-        .innerRadius(40)
+        .innerRadius(pieInnerRadius)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
         .colorAccessor(function(d,i){return d.value;})
-        .legend(dc.legend().x(590).y(150).itemHeight(20).gap(5).legendText(function(d){return platformLegend(d);}));
+        .legend(dc.legend().x(legendX).y(legendY).itemHeight(20).gap(5).legendText(function(d){return platformLegend(d);}));
 
 
     pieChartDevice
-        .width(400)
-        .height(400)
-        .radius(200)
+        .width(pieWidth)
+        .height(pieHeight)
+        .radius(pieRadius)
         .dimension(deviceTypeDim)
         .group(visitorsByDevice)
         .label(function(d){
@@ -174,17 +240,17 @@ function siteVisitsGraphs(data) {
 
 
         })
-        .innerRadius(40)
+        .innerRadius(pieInnerRadius)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
         .colorAccessor(function(d,i){return d.value;})
-        .legend(dc.legend().x(590).y(150).itemHeight(20).gap(5).legendText(function(d){return deviceLegend(d)}));
+        .legend(dc.legend().x(legendX).y(legendY).itemHeight(20).gap(5).legendText(function(d){return deviceLegend(d)}));
 
     visitorsCount
         .dimension(visitors)
         .group(all)
-        .html ({some: "%filter-count events selected <a class='btn btn-default btn-xs' href='javascript:dc.filterAll(); dc.renderAll();'  role='button'>Reset filters</a>", all: "%total-count Total Site Visits"});
+        .html ({some: "%filter-count for the range selected <a class='btn btn-default btn-xs' href='javascript:dc.filterAll(); dc.renderAll();'  role='button'>Reset filters</a>", all: "%total-count Total Site Visits"});
 
 
     dc.renderAll();
@@ -195,7 +261,7 @@ function siteVisitsGraphs(data) {
 
 /*Function Responsible to handle graph related to amount of visits specific to Webcast Events*/
 
-function eventVisitsGraphs(data){
+function eventVisitsGraphs(data,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height){
 
     var ndx = crossfilter(data);
 
@@ -266,27 +332,27 @@ function eventVisitsGraphs(data){
 
 
     pieChartPlatform
-        .width(720)
-        .height(400)
-        .radius(200)
+        .width(pieWidth)
+        .height(pieHeight)
+        .radius(pieRadius)
         .dimension(platformTypeDim)
         .group(visitorsByPlatform)
         .label(function(d){
 
          return platformLabel(d,visitorsByPlatform);
         })
-        .innerRadius(40)
+        .innerRadius(pieInnerRadius)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
         .colorAccessor(function(d,i){return d.value;})
-        .legend(dc.legend().x(590).y(150).itemHeight(20).gap(5).legendText(function(d){return platformLegend(d);}));
+        .legend(dc.legend().x(legendX).y(legendY).itemHeight(20).gap(5).legendText(function(d){return platformLegend(d);}));
 
 
     pieChartDevice
-        .width(700)
-        .height(400)
-        .radius(200)
+        .width(pieWidth)
+        .height(pieHeight)
+        .radius(pieRadius)
         .dimension(deviceTypeDim)
         .group(visitorsByDevice)
         .label(function(d){
@@ -295,17 +361,17 @@ function eventVisitsGraphs(data){
 
 
         })
-        .innerRadius(40)
+        .innerRadius(pieInnerRadius)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
         .colorAccessor(function(d,i){return d.value;})
-        .legend(dc.legend().x(590).y(150).itemHeight(20).gap(5).legendText(function(d){return deviceLegend(d)}));
+        .legend(dc.legend().x(legendX).y(legendY).itemHeight(20).gap(5).legendText(function(d){return deviceLegend(d)}));
 
     rowChart
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .width(width)
-        .height(400)
+        .height(height)
         .dimension(webcastDim)
         .group(webcastGroup)
         .xAxis().ticks(5);
@@ -328,7 +394,7 @@ dc.renderAll();
 
 /*The below function is responsible for the handling of graph related to support requests sent from a specific webcast*/
 
-function supportGraphs(data){
+function supportGraphs(data,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height){
 
     var ndx = crossfilter(data);
 
@@ -404,9 +470,9 @@ function supportGraphs(data){
 
 
     pieChart
-        .width(450)
-        .height(400)
-        .radius(220)
+        .width((pieWidth*60)/100)
+        .height(pieHeight)
+        .radius(pieRadius)
         .dimension(platformTypeDim)
         .group(visitorsByDevice)
         .label(function(d){
@@ -423,7 +489,7 @@ function supportGraphs(data){
                 return label + "(" + Math.ceil((d.value/sum) * 100) + '%)'
             }
         })
-        .innerRadius(40)
+        .innerRadius(pieInnerRadius)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
@@ -431,9 +497,9 @@ function supportGraphs(data){
 
 
     pieChartDevice
-        .width(450)
-        .height(400)
-        .radius(220)
+        .width((pieWidth*60)/100)
+        .height(pieHeight)
+        .radius(pieRadius)
         .dimension(deviceTypeDim)
         .group(visitorsByPlatform)
         .label(function(d){
@@ -468,16 +534,16 @@ function supportGraphs(data){
             }
 
         })
-        .innerRadius(40)
+        .innerRadius(pieInnerRadius)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
         .colorAccessor(function(d,i){return d.value;});
 
     pieChartSupportType
-        .width(450)
-        .height(400)
-        .radius(220)
+        .width((pieWidth*60)/100)
+        .height(pieHeight)
+        .radius(pieRadius)
         .dimension(issueTypeDim)
         .group(issueTypeGroup)
         .label(function(d){
@@ -497,7 +563,7 @@ function supportGraphs(data){
             }
 
         })
-        .innerRadius(45)
+        .innerRadius(pieInnerRadius)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([-1750, 1644])
@@ -532,7 +598,7 @@ rowChart.onClick = function(){};
 comparison between single webcasts events
  */
 
-function ratingsGraphs(data){
+function ratingsGraphs(data,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,height){
 
     var ndx = crossfilter(data);
 
@@ -569,9 +635,9 @@ function ratingsGraphs(data){
     var ratingsTotal = dc.numberDisplay('#ratings-header');
 
     pieChart
-        .width(700)
-        .height(400)
-        .radius(200)
+        .width(pieWidth)
+        .height(pieHeight)
+        .radius(pieRadius)
         .dimension(ratingsDim)
         .group(totalRatings)
         .label(function(d){
@@ -582,12 +648,12 @@ function ratingsGraphs(data){
 
 
         })
-        .innerRadius(40)
+        .innerRadius(pieInnerRadius)
         .transitionDuration(500)
         .ordinalColors(["#185A36", "#C1A780", "#C92223"])
         .colorDomain([0, 1644])
         .colorAccessor(function(d,i){return d.value;})
-        .legend(dc.legend().x(600).y(150).itemHeight(20).gap(5).legendText(function(d){
+        .legend(dc.legend().x(legendX).y((legendY * 130)/100).itemHeight(20).gap(5).legendText(function(d){
 
                 return d.name + " Stars";
             }));

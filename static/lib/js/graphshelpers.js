@@ -24,23 +24,23 @@ function platformLegend(d){
 
     var label = d.name;
 
-            if(label.includes('Linux armv8l') === true){
+            if(label.indexOf('Linux armv8l') >-1){
 
                 return 'Android'
             }
 
-            else if(label.includes('Linux')){
+            else if(label.indexOf('Linux') > -1){
 
                 return 'LINUX'
             }
 
-            else if(label.includes('Win32')){
+            else if(label.indexOf('Win32') > -1){
 
                 return 'Windows'
 
             }
 
-            else if(label.includes('MacIntel')){
+            else if(label.indexOf('MacIntel')>-1){
 
                 return 'Mac'
             }
@@ -55,23 +55,28 @@ function platformLegend(d){
 function deviceLegend(d){
             var label = d.name;
 
-            if(label.includes('Android') === true){
+            if(label.indexOf('Android') > -1){
 
                 return 'Mobile'
 
             }
 
-            else if (label.includes('Trident')){
+            else if (label.indexOf('Trident') > -1){
 
                 return 'IE/EDGE'
 
             }
 
-            else if(label.includes('Firefox')){
+            else if(label.indexOf('Firefox') > -1){
                 return 'FIREFOX'
             }
 
-            else if(label.includes('Chrome') === true) {
+            else if(label.indexOf('OPR') > -1) {
+
+                return 'OPERA'
+            }
+
+            else if(label.indexOf('Chrome') > -1 && label.indexOf('Android') === -1) {
 
                 return 'Chrome'
             }
@@ -103,15 +108,15 @@ function deviceLabel(d,elementArray){
        var label = d.key;
             var sum = getTotal(elementArray.all());
 
-            if(label.includes('Android') === true){
+            if(label.indexOf('Android')  > -1){
 
                 return  Math.ceil((d.value/sum) * 100) + '%'
             }
-            else if (label.includes('Trident')){
+            else if (label.indexOf('Trident') > -1){
 
                 return  Math.ceil((d.value/sum) * 100) + '%'
             }
-            else if(label.includes('Firefox')){
+            else if(label.indexOf('Firefox') > -1){
                 return  Math.ceil((d.value/sum) * 100) + '%'
             }
             else {
@@ -137,7 +142,7 @@ $('#tour-button').on('click',function(){
        // The "if" statement checks whether the tab-pane that includes the target element does contain the class "active"
        // which is responsible for activating the visibility of the tab in the page
 
-       if( $(targetElement).parents('.tab-pane').prop('class').includes('active')===false){
+       if( $(targetElement).parents('.tab-pane').prop('class').indexOf('active') === -1){
 
           // removing the class "active" from the current tab
            $(currentTab).removeClass('in active');

@@ -6,16 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
-    <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 {#<script src="https://s3.eu-west-2.amazonaws.com/elasticbeanstalk-eu-west-2-932524864295/js/main_dashboard.js" type="text/javascript"></script>#}
 
 
@@ -24,49 +15,65 @@
 <div class="container-fluid" style="height:100vh; padding-top:100px;background:white;">
 <h3>Welcome to the House of Parliament's Webcast reporting page </h3>
 
-<form method="post" action="/statistics" id="date-form">
- <div class='col-md-5'>
-        <div class="form-group">
-            <div class='input-group date' id='datetimepicker6'>
-                <input type='text' class="form-control dateInput" name="start_date" id="startDate"/>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-5'>
-        <div class="form-group">
-            <div class='input-group date dateInput' id='datetimepicker7'>
-                <input type='text' class="form-control" name="end_date" id="endDate"/>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-    <button type="button" name="submit" value="submit" id="submit-dates">submit</button>
-    </form>
-<script type="text/javascript">
-    $(document).ready(function(){
-    $(function () {
-        $('#datetimepicker6').datetimepicker();
-        $('#datetimepicker6').data("DateTimePicker").format('DD-MM-YYYY');
+    <p>This reporting page can provide you with all the information necessary to understand the effectiveness and reach of your
+    On-Demand Webcasts</p>
 
-        $('#datetimepicker7').datetimepicker({
-            useCurrent: false //Important! See issue #1075
-        });
-        $('#datetimepicker7').data("DateTimePicker").format('DD-MM-YYYY');
-        $("#datetimepicker6").on("dp.change", function (e) {
-            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-        });
-        $("#datetimepicker7").on("dp.change", function (e) {
-            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-        });
-    });
-    })
-</script>
+    <p>The Webcast reporting dashboard is divided into the following sections:</p>
+
+    <ul>
+        <li>Site Data</li>
+        <li>Events Specific</li>
+        <li>Support Specific</li>
+        <li>Rating Specific</li>
+    </ul>
+
 </div>
+<footer class="container-fluid">
+    <div class="navbar navbar-default" >
+        <ul class="nav navbar-nav">
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/">
+                    <i class="fa fa-external fa-lg"></i> UKParliament Site
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/azindex/">
+                    <i class="fa fa-external fa-lg"></i> A-Z index
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/glossary/">
+                    <i class="fa fa-external fa-lg"></i> Glossary
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/contact-us/">
+                    <i class="fa fa-external fa-lg"></i> Contact us
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/foi/">
+                    <i class="fa fa-external fa-lg"></i> Freedom of Information
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/job-opportunities/">
+                    <i class="fa fa-external fa-lg"></i> Jobs
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/using-this-website/">
+                    <i class="fa fa-external fa-lg"></i> Using this website
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/copyright/">
+                    <i class="fa fa-external fa-lg"></i> Copyright
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
 </body>
 </html>
 <script src="../static/lib/js/date_selection.js" type="text/javascript"></script>

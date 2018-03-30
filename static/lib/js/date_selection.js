@@ -15,6 +15,37 @@ $(document).ready(function(){
             $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
         });
     });
+
+    var dateStart = Date.parse(sessionStorage.getItem('startDate')).toString("dd/MM/yyyy");
+    var dateEnd = Date.parse(sessionStorage.getItem('endDate')).toString("dd/MM/yyyy");
+
+    dateRange = "Currently Selected Date From " + dateStart + " " +  "To " + dateEnd;
+
+    $('.dates-range-text').html(dateRange);
+
+    $('.date-select-fields-show-hide').click(function(e){
+
+        $('#date-form').slideToggle();
+
+        if($(e.currentTarget).hasClass('glyphicon-plus')){
+            $(e.currentTarget).removeClass('glyphicon-plus');
+            $(e.currentTarget).removeClass('green');
+            $(e.currentTarget).addClass('red');
+            $(e.currentTarget).addClass('glyphicon-minus');
+        }
+        else{
+            $(e.currentTarget).removeClass('red');
+            $(e.currentTarget).removeClass('glyphicon-minus');
+            $(e.currentTarget).addClass('green');
+            $(e.currentTarget).addClass('glyphicon-plus');
+        }
+
+
+
+
+
+    })
+
     });
 
 
@@ -74,3 +105,5 @@ $('#submit-dates').on('click',function(e){
         window.location = '/dashboard'
 
 });
+
+

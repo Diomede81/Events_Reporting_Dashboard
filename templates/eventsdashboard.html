@@ -15,8 +15,39 @@
         </div>
     </div>
 </div>
+<div class="date-selection-form-container">
+    <h2>Select Range of Dates <span class="glyphicon glyphicon-plus date-select-fields-show-hide green" style="cursor:pointer"></span></h2><p class="dates-range-text no-margin" ></p>
+        <form method="post" action="/statistics" id="date-form" style="display:none">
+ <div class='col-md-4 no-padding-left'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control dateInput" name="start_date" id="startDate"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-4 no-padding-left'>
+        <div class="form-group">
+            <div class='input-group date dateInput' id='datetimepicker7'>
+                <input type='text' class="form-control" name="end_date" id="endDate"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-default" type="button" name="submit" value="submit" id="submit-dates">submit</button>
+    </form>
+
+
+
+</div>
+
 
 <div class="container-fluid reports-container" id="graphContainer">
+
     <ul class="nav nav-tabs">
 
         <li role="presentation" class="active"><a href="#site-data" data-toggle="tab">Site Data</a></li>
@@ -40,6 +71,7 @@
                                 <div class="dc-data-count"></div>
                             </div>
                         </div>
+
                       <button class="intro_button pull-right btn btn-default" type="button" id="tour-button" autofocus>Start Tour!</button>
                     </div>
                     <!-- Time Chart -->
@@ -81,7 +113,9 @@
         </div>
         <div class="tab-pane fade" id="events-data" >
             <div  id="outer" class="container-fluid">
+
                 <div class="row">
+
                     <div class="col-sm-8" data-step="5" data-intro="Welcome to the Events Specific Panel! In here you will be able to get user views data related to webcast events
                         This specific element contains the total amount of events visits, when different data is selected within the
                                                                     graphs options, the value will adapt based on the selection" data-position="right">
@@ -94,9 +128,11 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- menu select -->
                     <div class="col-sm-4  padding" data-step="6" data-intro="From here you will be able to select data from single events,
                      the selection will update all of the graphs accordingly" data-position="left">
+
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Event Selection
@@ -107,9 +143,11 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- menu select -->
                 <!-- Time Chart -->
                 <div class="row borders padding">
+
                     <div class="col-sm-12 " data-step="7" data-intro="Number of Total Events Visits split by Month this graph will automatically
                     update when you select a single webcast" data-position="top">
                         <div class="chart-wrapper">
@@ -208,7 +246,7 @@
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
-                                Requests by Operating System
+                                <p>Requests by OS</p>
                             </div>
                             <div class="chart-stage">
                                 <div id="support-pie-chart"></div>
@@ -377,9 +415,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/keen-js/4.3.0/keen.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.7.0/intro.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js" type="text/javascript"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
-<script src="https://s3.eu-west-2.amazonaws.com/elasticbeanstalk-eu-west-2-932524864295/js/graphshelpers.js" type="text/javascript"></script>
-<script src="https://s3.eu-west-2.amazonaws.com/elasticbeanstalk-eu-west-2-932524864295/js/main_dashboard.js" type="text/javascript"></script>
-  {#  <script type="text/javascript" href="{{ url_for('static', filename = 'lib/js/graphhelpers.js') }}"></script>
-    <script type="text/javascript" href="{{ url_for('static', filename = 'lib/js/main_dashboard.js') }}"></script>#}
+
+{#<script src="https://s3.eu-west-2.amazonaws.com/elasticbeanstalk-eu-west-2-932524864295/js/graphshelpers.js" type="text/javascript"></script>
+<script src="https://s3.eu-west-2.amazonaws.com/elasticbeanstalk-eu-west-2-932524864295/js/main_dashboard.js" type="text/javascript"></script>#}
+{#     <script type="text/javascript" href="{{ url_for('static', filename = 'lib/js/date_selection.js') }}"></script>#}
+    <script type="text/javascript" src="{{ url_for('static', filename = 'lib/js/graphshelpers.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'lib/js/main_dashboard.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'lib/js/date_selection.js') }}"></script>
+
 {% endblock %}
