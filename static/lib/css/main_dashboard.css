@@ -1,6 +1,6 @@
 body{
     text-transform: uppercase!important;
-    background-color:grey;
+    background-color:white;
 }
 
 div.chart-stage div.dc-data-count{
@@ -356,8 +356,56 @@ div.main-website-navbar .navbar-header{
            margin-right:0;
        }
 
+       .info-text-container{
+           padding:20px 20px 20px 130px;
+       }
 
-       @media only screen and (max-width:1300px) {
+       .menu-container{
+           width:100%;
+           border-radius: 5px;
+           margin-top:60px;
+       }
+
+       .menu-container p{
+           padding:30px 210px 0 100px;
+           line-height: 1.8em;
+           text-transform: none;
+           text-align: justify;
+       }
+
+       .info-text-container ul{
+           display:inline-flex;
+           list-style: none;
+            margin:0 auto;
+           color:black;
+           width:70%;
+           text-align:center;
+       }
+
+       .info-text-container ul li{
+           font-weight:bold;
+           font-size:1.3em;
+           margin-left:50px;
+           padding:30px;
+           border-radius: 5px;
+           cursor:pointer;
+           border-left: solid black 1px;
+           border-right: solid black 1px;
+           transition:background 0.5s ease , border-bottom 0.5s ease;
+       }
+
+
+       .info-text-container ul li:hover{
+           background: rgb(110, 160, 134);
+           border-bottom: solid 1px black;
+       }
+
+       .hide-element{
+           display:none;
+       }
+
+
+       @media only screen and (max-width:1600px) {
 
            .tab-header{
                font-size:2.5em;

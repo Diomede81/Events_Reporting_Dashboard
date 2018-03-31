@@ -1,4 +1,7 @@
 
+
+
+
 $(document).ready(function(){
     $(function () {
         $('#datetimepicker6').datetimepicker();
@@ -16,8 +19,19 @@ $(document).ready(function(){
         });
     });
 
-    var dateStart = Date.parse(sessionStorage.getItem('startDate')).toString("dd/MM/yyyy");
-    var dateEnd = Date.parse(sessionStorage.getItem('endDate')).toString("dd/MM/yyyy");
+    var dateStart = Date.parse(sessionStorage.getItem('startDate'));
+    var dateEnd = Date.parse(sessionStorage.getItem('endDate'));
+
+    if(dateStart === null){
+
+    dateStart = Date.today().add(-6).months().toString('dd/MM/yyyy');
+    dateEnd = Date.today().toString('dd/MM/yyyy')
+
+
+    } else{
+        dateStart.toString("dd/MM/yyyy");
+        dateEnd.toString("dd/MM/yyyy");
+    }
 
     dateRange = "Currently Selected Date From " + dateStart + " " +  "To " + dateEnd;
 
