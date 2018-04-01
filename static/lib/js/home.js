@@ -1,8 +1,6 @@
 $(document).ready(function(){
 
  $('.explanation-button').on('click',function(e){
-
-
      switch($(e.currentTarget).html()) {
 
          case "Site Data" :
@@ -24,15 +22,5 @@ $(document).ready(function(){
          default:
              console.log($(e.currentTarget).html());
      }
-
-/*
-     if($(e.currentTarget).html() === "Site Data"){
-
-         $('#site-data').fadeToggle();
-         console.log($(e.currentTarget).html());
-
-     }*/
-
  })
-
 });

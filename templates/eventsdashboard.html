@@ -49,7 +49,6 @@
 <div class="container-fluid reports-container" id="graphContainer">
 
     <ul class="nav nav-tabs">
-
         <li role="presentation" class="active"><a href="#site-data" data-toggle="tab">Site Data</a></li>
         <li><a href="#events-data" data-toggle="tab">Events Specific</a></li>
         <li><a href="#support-data" data-toggle="tab">Support Specific</a></li>
@@ -75,7 +74,7 @@
                       <button class="intro_button pull-right btn btn-default" type="button" id="tour-button" autofocus>Start Tour!</button>
                     </div>
                     <!-- Time Chart -->
-                    <div class="col-sm-12 borders padding pie-chart" data-step="2" data-intro="Number of Total Site Visits split by Month" data-position="top">
+                    <div class="col-sm-12 col-xs-12 mobile-hide  borders padding pie-chart" data-step="2" data-intro="Number of Total Site Visits split by Month" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Number of Site Views by Month
@@ -86,7 +85,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-12 borders padding pie-chart" data-step="3" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
+                    <div class="col-lg-6 col-md-12 borders padding pie-chart mobile-chart-padding" data-step="3" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title ">
@@ -97,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 borders padding" data-step="4" data-intro="This graph is showing the number of views divided by different type of browser ad devices, this might
+                    <div class="col-lg-6 borders padding mobile-chart-padding" data-step="4" data-intro="This graph is showing the number of views divided by different type of browser ad devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -148,7 +147,7 @@
                 <!-- Time Chart -->
                 <div class="row borders padding">
 
-                    <div class="col-sm-12 " data-step="7" data-intro="Number of Total Events Visits split by Month this graph will automatically
+                    <div class="col-sm-12 mobile-hide " data-step="7" data-intro="Number of Total Events Visits split by Month this graph will automatically
                     update when you select a single webcast" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -161,7 +160,7 @@
                     </div>
                 </div>
                 <div class="row borders">
-                    <div class="col-sm-6 padding"  data-step="8" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
+                    <div class="col-sm-6 padding mobile-chart-padding"  data-step="8" data-intro="This graph is showing the number of views divided by different type of operating systems and devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -172,7 +171,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 padding" data-step="9" data-intro="This graph is showing the number of views divided by different type of browser and devices, this might
+                    <div class="col-sm-6 padding mobile-chart-padding" data-step="9" data-intro="This graph is showing the number of views divided by different type of browser and devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -205,7 +204,7 @@
         <div class="tab-pane fade" id="support-data">
             <div  id="outer" class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-8" data-step="11" data-intro="Welcome to the Support Specific Panel! In here you will be able to get user views data related to Support Requests
+                    <div class="col-sm-8 " data-step="11" data-intro="Welcome to the Support Specific Panel! In here you will be able to get user views data related to Support Requests
                         This specific element contains the Number of Total Support Requests split by Month, when different data is selected within the
                                                                     graphs options, the value will adapt based on the selection">
                         <div class="chart-wrapper">
@@ -229,7 +228,7 @@
                     </div>
                 </div>
                 <div class="row borders padding">
-                    <div class="col-sm-12" data-step="13" data-intro="Number of Total Support Requests split by Month, this graph will automatically
+                    <div class="col-sm-12 mobile-hide" data-step="13" data-intro="Number of Total Support Requests split by Month, this graph will automatically
                     update when you select a single webcast" data-position="top">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -242,7 +241,7 @@
                     </div>
                 </div>
                 <div class="row borders padding">
-                    <div class="col-sm-4" data-step="14" data-intro="This graph is showing the number of support requests divided by different type of operating systems and devices, this might
+                    <div class="col-sm-4 col-xs-12 mobile-chart-padding" data-step="14" data-intro="This graph is showing the number of support requests divided by different type of operating systems and devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform " data-position="right">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -253,7 +252,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4" data-step="15" data-intro="This graph is showing the number of support requests divided by different type of browser ad devices, this might
+                    <div class="col-sm-4 col-xs-12 mobile-chart-padding"  data-step="15" data-intro="This graph is showing the number of support requests divided by different type of browser ad devices, this might
                     help you in prioritizing and targeting eventual improvements based upon the type of configuration your users utilize to connect to the platform" data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -264,7 +263,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4" data-step="16" data-intro="This graph is showing the number of support requests divided by different type of pre-defined problem types, this might
+                    <div class="col-sm-4 col-xs-12 mobile-chart-padding" data-step="16" data-intro="This graph is showing the number of support requests divided by different type of pre-defined problem types, this might
                     help you in identifying specific isolated issues and tackle problem with a more efficient approach " data-position="left">
                         <div class="chart-wrapper">
                             <div class="chart-title">
@@ -354,53 +353,6 @@
         </div>
     </div>
 </div>
-<footer class="container-fluid">
-    <div class="navbar navbar-default" >
-        <ul class="nav navbar-nav">
-            <li>
-                <a target="_blank" href="http://www.parliament.uk/">
-                    <i class="fa fa-external fa-lg"></i> UKParliament Site
-                </a>
-            </li>
-            <li>
-                <a target="_blank" href="http://www.parliament.uk/site-information/azindex/">
-                    <i class="fa fa-external fa-lg"></i> A-Z index
-                </a>
-            </li>
-            <li>
-                <a target="_blank" href="http://www.parliament.uk/site-information/glossary/">
-                    <i class="fa fa-external fa-lg"></i> Glossary
-                </a>
-            </li>
-            <li>
-                <a target="_blank" href="http://www.parliament.uk/site-information/contact-us/">
-                    <i class="fa fa-external fa-lg"></i> Contact us
-                </a>
-            </li>
-            <li>
-                <a target="_blank" href="http://www.parliament.uk/site-information/foi/">
-                    <i class="fa fa-external fa-lg"></i> Freedom of Information
-                </a>
-            </li>
-            <li>
-                <a target="_blank" href="http://www.parliament.uk/site-information/job-opportunities/">
-                    <i class="fa fa-external fa-lg"></i> Jobs
-                </a>
-            </li>
-            <li>
-                <a target="_blank" href="http://www.parliament.uk/site-information/using-this-website/">
-                    <i class="fa fa-external fa-lg"></i> Using this website
-                </a>
-            </li>
-            <li>
-                <a target="_blank" href="http://www.parliament.uk/site-information/copyright/">
-                    <i class="fa fa-external fa-lg"></i> Copyright
-                </a>
-            </li>
-        </ul>
-    </div>
-</footer>
-
 </body>
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"

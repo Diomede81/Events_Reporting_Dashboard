@@ -22,20 +22,23 @@ $(document).ready(function(){
     var dateStart = Date.parse(sessionStorage.getItem('startDate'));
     var dateEnd = Date.parse(sessionStorage.getItem('endDate'));
 
+    console.log(dateStart);
+
     if(dateStart === null){
-
-    dateStart = Date.today().add(-6).months().toString('dd/MM/yyyy');
-    dateEnd = Date.today().toString('dd/MM/yyyy')
-
+        dateStart = Date.today().add(-6).months().toString("dd/MM/yyyy");
+        dateEnd = Date.today().toString("dd/MM/yyyy");
+        dateRange = "Currently Selected Dates From " + dateStart + " " +  "To " + dateEnd;
+        $('.dates-range-text').html(dateRange);
 
     } else{
-        dateStart.toString("dd/MM/yyyy");
-        dateEnd.toString("dd/MM/yyyy");
+        dateStart = dateStart.toString("dd/MM/yyyy");
+        dateEnd = dateEnd.toString("dd/MM/yyyy");
     }
 
-    dateRange = "Currently Selected Date From " + dateStart + " " +  "To " + dateEnd;
-
+    dateRange = "Currently Selected Dates From " + dateStart + " " +  "To " + dateEnd;
     $('.dates-range-text').html(dateRange);
+
+
 
     $('.date-select-fields-show-hide').click(function(e){
 

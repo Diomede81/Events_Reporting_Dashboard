@@ -10,7 +10,6 @@ if(dateStartSet === null){
     startdate = Date.today().add(-6).months().toString('yyyy-M-d');
     endDate = Date.today().toString('yyyy-M-d')
 
-
 } else{
      startdate = dateStartSet;
     endDate = dateEndSet;
@@ -78,10 +77,17 @@ function loadGraphs(data,pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRa
 }
 
 
+   if (window.innerWidth > 1200){
 
+        width = (window.innerWidth * 80) / 100;
+        height = (window.innerHeight * 50) / 100;
 
-width = (window.innerWidth * 80) / 100;
-height = (window.innerHeight * 50) / 100;
+    } else{
+
+        width = (window.innerWidth * 70) / 100;
+        height = (window.innerHeight * 50) / 100;
+    }
+
 
 
 if (window.innerWidth > 1900){
@@ -113,8 +119,18 @@ loadData(pieWidth,pieHeight,pieRadius,legendX,legendY,pieInnerRadius,width,heigh
 window.onresize = function(){
     /*Variables and statements responsible for graphs adaptive size based on browser window */
 
-width = (window.innerWidth * 80) / 100;
-height = (window.innerHeight * 50) / 100;
+    if (window.innerWidth > 1300){
+
+        width = (window.innerWidth * 80) / 100;
+        height = (window.innerHeight * 50) / 100;
+
+    } else{
+
+        width = (window.innerWidth * 60) / 100;
+        height = (window.innerHeight * 50) / 100;
+    }
+
+
 
 
 if (window.innerWidth > 1900){

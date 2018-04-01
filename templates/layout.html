@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.9/dc.css">
@@ -11,15 +12,18 @@
   <link rel="stylesheet" href="{{ url_for('static', filename = 'lib/css/main_dashboard.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.7.0/introjs.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
 </head>
 <div class="container ">
     <div class="navbar navbar-default navbar-fixed-top main-website-navbar" >
         <div class="container no-margin-padding-left ">
             <div class="navbar-header">
-                <img class="menu-header-image" src="https://s3.eu-west-2.amazonaws.com/elasticbeanstalk-eu-west-2-932524864295/img/logo-main.png" width="450" height="70" alt="Marver Logo" data-toggle="tab">
-                <span class="pull-right fa fa-bars fa-4x mobile-menu"></span>
+                <img class="menu-header-image" src="https://s3.eu-west-2.amazonaws.com/elasticbeanstalk-eu-west-2-932524864295/img/logo-main.png" alt="HOUSE OF PARLIAMENT Logo" data-toggle="tab">
             </div>
+            <div class="mobile-menu-container hide-element">
+        <span class="glyphicon glyphicon-th-list " id="mobile-menu-list-icon"></span>
+        </div>
             <div class="navigation-list">
                 <ul class="nav navbar-nav main-navbar">
                     <li>
@@ -28,21 +32,63 @@
                     <li>
                         <a href="/dashboard" >Dashboard</a>
                     </li>
-                    <li>
-                        <a href="#" >HELP</a>
-                    </li>
-
                 </ul>
             </div>
         </div>
     </div>
 
+
+
+
 </div>
 {%block body%}
 
-
-
 {% endblock %}
-
+<footer class="container-fluid">
+    <div class="navbar navbar-default" >
+        <ul class="nav navbar-nav">
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/">
+                    <i class="fa fa-external fa-lg"></i> UKParliament Site
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/azindex/">
+                    <i class="fa fa-external fa-lg"></i> A-Z index
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/glossary/">
+                    <i class="fa fa-external fa-lg"></i> Glossary
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/contact-us/">
+                    <i class="fa fa-external fa-lg"></i> Contact us
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/foi/">
+                    <i class="fa fa-external fa-lg"></i> Freedom of Information
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/job-opportunities/">
+                    <i class="fa fa-external fa-lg"></i> Jobs
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/using-this-website/">
+                    <i class="fa fa-external fa-lg"></i> Using this website
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.parliament.uk/site-information/copyright/">
+                    <i class="fa fa-external fa-lg"></i> Copyright
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
 
 </html>
